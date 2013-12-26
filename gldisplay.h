@@ -13,11 +13,7 @@ public:
     virtual void paintGL();
     virtual void resizeGL(int w, int h);
 
-    void loadObj(const char* path,
-                 std::vector<unsigned int> &outIndices,
-                 std::vector<float> &outVertices,
-                 std::vector<float> &outUVs,
-                 std::vector<float> &outNormals);
+    bool loadObj(const char* path);
 
 signals:
 

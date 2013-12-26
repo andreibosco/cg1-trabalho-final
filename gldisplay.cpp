@@ -4,29 +4,20 @@
 #include <GL/glu.h>
 #include <GL/freeglut.h>
 
-#include <assimp/Importer.hpp> // C++ importer
-#include <assimp/scene.h> // collects data
-#include <assimp/postprocess.h> // extra operations
-
-#include <iostream>
-#include <cstdio>
-#include <cstdlib>
-#include <vector>
-#include <cassert>
+#include "object.h"
 
 #include <QDebug>
 
 #define FRUSTRUM_SIZE 1.0
 
-// FIXME: substituir pelo arquivo a ser lido
-std::string filename = "box.obj";
-
 // the global Assimp scene object
-const struct aiScene* scene = NULL;
-GLuint scene_list = 0;
+//const struct aiScene* scene = NULL;
+//GLuint scene_list = 0;
 
 // current rotation angle
 static float angle = 0.f;
+
+Object modelos3d[2];
 
 GLDisplay::GLDisplay(QWidget *parent) :
     QGLWidget(parent)
@@ -60,17 +51,15 @@ void GLDisplay::paintGL()
 
     //renderObjects();
 
-    std::vector<unsigned int> indices;
-    std::vector<float> vertices;
-    std::vector<float> uvs;
-    std::vector<float> normals;
+//    std::vector<unsigned int> indices;
+//    std::vector<float> vertices;
+//    std::vector<float> uvs;
+//    std::vector<float> normals;
 
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
-    loadObj("assets/sala-teste.lxo",
-            indices,
-            vertices,
-            uvs,
-            normals);
+    //loadObj("assets/sala-teste.lxo");
+    modelos3d[0].load3dFile("assets/sala-teste.lxo");
+    modelos3d[1].load3dFile("assets/cube.lxo");
 
     glFlush();
 
@@ -98,11 +87,8 @@ void GLDisplay::resizeGL(int w, int h)
                  FRUSTRUM_SIZE);
 }
 
-void GLDisplay::loadObj(const char* path,
-                        std::vector<unsigned int> &outIndices,
-                        std::vector<float> &outVertices,
-                        std::vector<float> &outUVs,
-                        std::vector<float> &outNormals)
+/*
+bool GLDisplay::loadObj(const char* path)
 {
     Assimp::Importer importer; // criando instancia de Importer
     const aiScene* scene = importer.ReadFile(path, aiProcessPreset_TargetRealtime_Fast);
@@ -110,6 +96,7 @@ void GLDisplay::loadObj(const char* path,
     if (!scene)
     {
         qDebug() << "arquivo não encontrado";
+        return false;
     }
 
     else
@@ -140,8 +127,10 @@ void GLDisplay::loadObj(const char* path,
 
             glEnd();
         }
+
+        return true;
     }
 
 }
 
-
+*/
