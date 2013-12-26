@@ -7,6 +7,7 @@ public:
     Object();
 
     bool load3dFile(const char* path);
+    void render();
 
 };
 
