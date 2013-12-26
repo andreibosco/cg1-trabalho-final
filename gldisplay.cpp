@@ -17,7 +17,7 @@
 // current rotation angle
 //static float angle = 0.f;
 
-Object modelos3d[2];
+Object modelos3d[3];
 
 GLDisplay::GLDisplay(QWidget *parent) :
     QGLWidget(parent)
@@ -51,9 +51,28 @@ void GLDisplay::initializeGL()
         glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
 
     // Ambient light
-    float light2_ambient[] = {0.2, 0.2, 0.2};
+    float light1_ambient[] = {0.7, 0.7, 0.7};
     glEnable(GL_LIGHT1);
-    glLightfv(GL_LIGHT1, GL_AMBIENT, light2_ambient);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+
+    // Spotlight (luminaria)
+    float light2_diffuse[] = {1.0, 0.0, 0.0};
+    float light2_position[] = {0.0, 1.0, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+    float light2_direction[] = {0.0, 0.0, 0.0};
+    int light2_spot_cutoff = 30; // 0 a 180
+    float light2_exponent = 1.0; // 0 a 128
+
+    glEnable(GL_LIGHT2);
+        glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse);
+        glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
+
+        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.5);
+        //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
+        //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
+
+        glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
+        //glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
+        glLighti(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
 }
 
 void GLDisplay::paintGL()
@@ -67,8 +86,17 @@ void GLDisplay::paintGL()
 //              0.0,1.0,0.0);
 
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
-    modelos3d[0].load3dFile("assets/sala-teste.dae");
-    modelos3d[1].load3dFile("assets/cube-yellow.dae");
+    //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
+
+    modelos3d[0].load3dFile("assets/mesa.dae");
+
+    glTranslatef(0.0, 0.0, 0.3);
+    modelos3d[1].load3dFile("assets/cadeira.dae");
+    glTranslatef(0.0, 0.0, -0.3);
+
+    glTranslatef(0.0, 0.73, 0.0);
+    modelos3d[2].load3dFile("assets/lampada.dae");
+    glTranslatef(0.0, -0.73, 0.0);
 
     //modelos3d[0].render();
 
