@@ -8,7 +8,7 @@
 
 #include <QDebug>
 
-#define FRUSTRUM_SIZE 1.0
+#define FRUSTRUM_SIZE 10.0
 
 // the global Assimp scene object
 //const struct aiScene* scene = NULL;
@@ -32,26 +32,43 @@ void GLDisplay::initializeGL()
 
     glFrontFace(GL_CCW);
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
     glColor3f(1.0,1.0,1.0);
+
+    // Lightning
+    glEnable(GL_LIGHTING);
+
+    // Shade Model
+    glShadeModel(GL_SMOOTH); // GL_FLAT or GL_SMOOTH
+
+    // Diffuse light
+    float light0_diffuse[] = {0.5, 0.5, 0.5};
+    float light0_specular[] = {1.0, 1.0, 1.0};
+
+    glEnable(GL_LIGHT0);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+
+    // Ambient light
+    float light2_ambient[] = {0.2, 0.2, 0.2};
+    glEnable(GL_LIGHT1);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light2_ambient);
 }
 
 void GLDisplay::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glLoadIdentity();
-
     glMatrixMode(GL_MODELVIEW);
 
-    gluLookAt(0.0,0.0,1.0,
-              0.0,0.0,0.0,
-              0.0,1.0,0.2);
+//    gluLookAt(1.0,0.0,0.0,
+//              0.0,0.0,0.0,
+//              0.0,1.0,0.0);
 
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
-    modelos3d[0].load3dFile("assets/sala-teste.lxo");
-    modelos3d[1].load3dFile("assets/cube.lxo");
+    modelos3d[0].load3dFile("assets/sala-teste.dae");
+    modelos3d[1].load3dFile("assets/cube-yellow.dae");
 
     //modelos3d[0].render();
 
@@ -72,18 +89,24 @@ void GLDisplay::resizeGL(int w, int h)
 
     glViewport(0, 0, w, h);
 
+    glLoadIdentity();
+
     if ( w>= h )
-        glOrtho(-FRUSTRUM_SIZE * w / h,
-                 FRUSTRUM_SIZE * w / h,
-                -FRUSTRUM_SIZE,
-                 FRUSTRUM_SIZE,
-                -FRUSTRUM_SIZE,
-                 FRUSTRUM_SIZE);
+        gluPerspective(45, w/h, 1, 5);
     else
-        glOrtho(-FRUSTRUM_SIZE,
-                 FRUSTRUM_SIZE,
-                -FRUSTRUM_SIZE * h / w,
-                 FRUSTRUM_SIZE * h / w,
-                -FRUSTRUM_SIZE,
-                 FRUSTRUM_SIZE);
+        gluPerspective(45, h/w, 1, 5);
+
+    glMatrixMode(GL_MODELVIEW);
+
+    glLoadIdentity();
+
+    // posicao 01
+//    gluLookAt(1.0,1.5,1.5,
+//              -0.4,0.0,-0.4,
+//              0.0,1.0,0.0);
+
+    // posicao 02
+    gluLookAt(0.8,1.5,1.1,
+              -0.14,0.175,-0.31,
+              0.0,1.0,0.0);
 }
