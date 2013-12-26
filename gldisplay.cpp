@@ -54,7 +54,7 @@ void GLDisplay::paintGL()
 
     glMatrixMode(GL_MODELVIEW);
 
-    gluLookAt(0.2,0.2,0.2,
+    gluLookAt(0.0,0.0,1.0,
               0.0,0.0,0.0,
               0.0,1.0,0.2);
 
@@ -66,41 +66,11 @@ void GLDisplay::paintGL()
     std::vector<float> normals;
 
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
-    loadObj("assets/cube.lxo",
+    loadObj("assets/sala-teste.lxo",
             indices,
             vertices,
             uvs,
             normals);
-    /*
-    for (unsigned int i = 0; i < (vertices.size() / 3); i++)
-    {
-        int face = i;
-        qDebug() << "face " << i;
-
-        glBegin(GL_TRIANGLES);
-            glColor3f(1.0, 0.0, 0.0);
-
-            if (i == 0)
-            {
-                qDebug() << "vertice 1" << i;
-                qDebug() << "vertice 1" << i+1;
-                qDebug() << "vertice 1" << i+2;
-                glVertex3f(vertices[i],
-                           vertices[i+1],
-                           vertices[i+2]);
-            }
-            else
-            {
-                qDebug() << "vertice 1" << i*3;
-                qDebug() << "vertice 1" << i*3+1;
-                qDebug() << "vertice 1" << i*3+2;
-                glVertex3f(vertices[i*3],
-                           vertices[i*3+1],
-                           vertices[i*3+2]);
-            }
-        glEnd();
-    }
-    */
 
     glFlush();
 
@@ -136,74 +106,42 @@ void GLDisplay::loadObj(const char* path,
 {
     Assimp::Importer importer; // criando instancia de Importer
     const aiScene* scene = importer.ReadFile(path, aiProcessPreset_TargetRealtime_Fast);
-    aiMesh* mesh = scene->mMeshes[0]; // first mesh from file
 
-    /*
-
-    int numOfFaces = mesh->mNumFaces;
-    int numOfIndices = numOfFaces * 3;
-    outIndices.resize(numOfIndices);
-
-    for (unsigned int i = 0; i<mesh->mNumFaces; ++i)
+    if (!scene)
     {
-        const aiFace &face = mesh->mFaces[i];
-        assert(face.mNumIndices == 3);
-        outIndices[i * 3 + 0] = face.mIndices[0];
-        outIndices[i * 3 + 1] = face.mIndices[1];
-        outIndices[i * 3 + 2] = face.mIndices[2];
+        qDebug() << "arquivo não encontrado";
     }
 
-    int numOfVertices = mesh->mNumVertices;
-    outVertices.resize(numOfVertices * 3);
-    outNormals.resize(numOfVertices * 3);
-    outUVs.resize(numOfVertices * 2);
-
-    for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
+    else
     {
-        if (mesh->HasPositions())
-        {
-            outVertices[i * 3 + 0] = mesh->mVertices[i].x;
-            outVertices[i * 3 + 1] = mesh->mVertices[i].y;
-            outVertices[i * 3 + 2] = mesh->mVertices[i].z;
-        }
+        aiMesh* mesh = scene->mMeshes[0]; // first mesh from file
 
-        if (mesh->HasNormals())
+        for (unsigned int t = 0; t < mesh->mNumFaces; ++t)
         {
-            outNormals[i * 3 + 0] = mesh->mNormals[i].x;
-            outNormals[i * 3 + 1] = mesh->mNormals[i].y;
-            outNormals[i * 3 + 2] = mesh->mNormals[i].z;
-        }
+            const aiFace* face = &mesh->mFaces[t];
+            GLenum face_mode;
 
-        if (mesh->HasTextureCoords(0))
-        {
-            outUVs[i * 2 + 0] = mesh->mTextureCoords[0][i].x;
-            outUVs[i * 2 + 1] = mesh->mTextureCoords[0][i].y;
+            switch (face->mNumIndices)
+            {
+                case 1: face_mode = GL_POINTS; break;
+                case 2: face_mode = GL_LINES; break;
+                case 3: face_mode = GL_TRIANGLES; break;
+                default: face_mode = GL_POLYGON; break;
+            }
+
+            glBegin(face_mode);
+            glColor3f(1.0,0.0,0.0);
+
+            for (unsigned int i = 0; i < face->mNumIndices; i++)
+            {
+                int index = face->mIndices[i];
+                glVertex3fv(&mesh->mVertices[index].x);
+            }
+
+            glEnd();
         }
     }
-    */
 
-    for (unsigned int t = 0; t < mesh->mNumFaces; ++t)
-    {
-        const aiFace* face = &mesh->mFaces[t];
-        GLenum face_mode;
-
-        switch (face->mNumIndices)
-        {
-            case 1: face_mode = GL_POINTS; break;
-            case 2: face_mode = GL_LINES; break;
-            case 3: face_mode = GL_TRIANGLES; break;
-            default: face_mode = GL_POLYGON; break;
-        }
-
-        glBegin(face_mode);
-        glColor3f(1.0,0.0,0.0);
-
-        for (unsigned int i = 0; i < face->mNumIndices; i++)
-        {
-            int index = face->mIndices[i];
-            glVertex3fv(&mesh->mVertices[index].x);
-        }
-
-        glEnd();
-    }
 }
+
+
