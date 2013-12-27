@@ -46,25 +46,23 @@ void GLDisplay::initializeGL()
     float light0_diffuse[] = {0.5, 0.5, 0.5};
     float light0_specular[] = {1.0, 1.0, 1.0};
 
-    //glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT0);
         glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
         glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
 
     // Ambient light
-    float light1_ambient[] = {0.7, 0.7, 0.7};
-    //glEnable(GL_LIGHT1);
+    float light1_ambient[] = {0.2, 0.2, 0.2};
+    glEnable(GL_LIGHT1);
         glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
-
-
 
     // Point light (teste)
     float light3_diffuse[] = {1.0, 1.0, 1.0};
-    float light3_position[] = {0.0, 0.0, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+    float light3_position[] = {0.0, 1.0, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
 
     //glEnable(GL_LIGHT3);
         glLightfv(GL_LIGHT3, GL_DIFFUSE, light3_diffuse);
         glLightfv(GL_LIGHT3, GL_POSITION, light3_position);
-        glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
+        //glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
 }
 
 void GLDisplay::paintGL()
@@ -79,22 +77,26 @@ void GLDisplay::paintGL()
     // === LUZ ===
     // Spotlight (luminaria)
     float light2_diffuse[] = {1.0, 1.0, 1.0};
-    float light2_position[] = {0.0, 1.5, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
-    float light2_direction[] = {0.0, -1.0, 0.0}; // vetor de direção
-    float light2_spot_cutoff = 20; // 0 a 180
+    float light2_ambient[] = {0.7, 0.7, 0.7};
+    //float light2_position[] = {0.0, 1.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+    float light2_position[] = {0.05, 0.93, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+    //float light2_direction[] = {0.0, -1.0, 0.0}; // vetor de direção
+    float light2_direction[] = {0.496139, -0.868243, 0.0}; // vetor de direção
+    float light2_spot_cutoff = 40; // 0 a 180
     float light2_exponent = 5.0; // 0 a 128
 
     glEnable(GL_LIGHT2);
+        //glLightfv(GL_LIGHT2, GL_AMBIENT, light2_ambient);
         glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse);
         glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
+
+        glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
+        glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
+        glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
 
         glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.5);
         //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
         //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
-
-        glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
-        glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
-        glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
 
     // === OBJETOS ===
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
@@ -136,9 +138,9 @@ void GLDisplay::resizeGL(int w, int h)
     glLoadIdentity();
 
     if ( w>= h )
-        gluPerspective(45, w/h, 1, 5);
+        gluPerspective(45, w/h, 0.5, 5);
     else
-        gluPerspective(45, h/w, 1, 5);
+        gluPerspective(45, h/w, 0.5, 5);
 
     glMatrixMode(GL_MODELVIEW);
 
@@ -150,14 +152,19 @@ void GLDisplay::resizeGL(int w, int h)
 //              0.0,1.0,0.0);
 
     // posicao 02 (perspectiva - visao de angulo)
-    gluLookAt(0.8,1.5,1.1,
-              -0.14,0.175,-0.31,
-              0.0,1.0,0.0);
+//    gluLookAt(0.8,1.5,1.1,
+//              -0.14,0.175,-0.31,
+//              0.0,1.0,0.0);
 
     // posicao 03 (topo)
 //    gluLookAt(0.0,2.8,0.0,
 //              0.0,0.0,0.0,
 //              0.0,1.0,1.0);
+
+    // posicao 04 (perspectiva - mesa)
+    gluLookAt(-0.45,1.2,0.9,
+              -0.08,0.73,0.0,
+              0.0,1.0,0.0);
 }
 
 void GLDisplay::mouseMoveEvent(QMouseEvent *event)
