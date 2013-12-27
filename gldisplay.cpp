@@ -14,7 +14,7 @@
 //static float angle = 0.f;
 
 // array de objetos
-Object modelos3d[4];
+Object modelos3d[5];
 
 // vetor p/ guardar objetos carregados (não implementado ainda)
 //std::vector<Object *> loadedModels;
@@ -112,10 +112,15 @@ void GLDisplay::paintGL()
         glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
         glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
 
-        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
+        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.8);
         //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
         //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
     modelos3d[3].load3dFile("assets/lampada.dae");
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0, 0.73, 0.1);
+    modelos3d[4].load3dFile("assets/livro.dae");
     glPopMatrix();
 
     /* loop p/ renderizar os objetos (FIXME: não funcional, render não funciona se for chamado fora do object.cpp)
