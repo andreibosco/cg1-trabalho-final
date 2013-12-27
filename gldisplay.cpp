@@ -18,6 +18,7 @@
 //static float angle = 0.f;
 
 Object modelos3d[4];
+std::vector<Object *> loadedModels;
 
 GLDisplay::GLDisplay(QWidget *parent) :
     QGLWidget(parent)
@@ -101,19 +102,22 @@ void GLDisplay::paintGL()
 
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
     //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
+    //modelos3d[0].render(modelos3d[0].scene, modelos3d[0].scene->mRootNode);
+
     modelos3d[0].load3dFile("assets/chao.dae");
 
     modelos3d[1].load3dFile("assets/mesa.dae");
 
+    glPushMatrix();
     glTranslatef(0.0, 0.0, 0.3);
     modelos3d[2].load3dFile("assets/cadeira.dae");
-    glTranslatef(0.0, 0.0, -0.3);
+    glPopMatrix();
 
+    glPushMatrix();
     glTranslatef(0.0, 0.73, 0.0);
+    //glRotatef(-45,0.0,1.0,0.0);
     modelos3d[3].load3dFile("assets/lampada.dae");
-    glTranslatef(0.0, -0.73, 0.0);
-
-    //modelos3d[0].render();
+    glPopMatrix();
 
     /*
     for (int i = 0; i < 2; i++)

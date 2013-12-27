@@ -4,6 +4,14 @@
 #include <QGLWidget>
 #include <QMouseEvent>
 
+#include "object.h"
+
+struct loadedModel {
+    int modelId;
+    Object * modelScene;
+};
+
+
 class GLDisplay : public QGLWidget
 {
     Q_OBJECT

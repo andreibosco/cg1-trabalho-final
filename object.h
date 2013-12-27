@@ -16,6 +16,7 @@ public:
 
     void render(const aiScene *sc, const aiNode *nd);
 
+    const aiScene* scene;
 };
 
 #endif // OBJECT_H
