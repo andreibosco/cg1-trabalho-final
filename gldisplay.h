@@ -24,6 +24,8 @@ public:
 
     bool loadObj(const char* path);
 
+    bool light2_enable = true;
+
 protected:
     virtual void mouseMoveEvent ( QMouseEvent * event );
     virtual void mousePressEvent ( QMouseEvent * event );

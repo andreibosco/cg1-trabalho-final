@@ -18,7 +18,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="GLDisplay" name="widget" native="true">
+       <widget class="GLDisplay" name="glDisplayWdgt" native="true">
         <property name="minimumSize">
          <size>
           <width>500</width>

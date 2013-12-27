@@ -94,6 +94,7 @@ void GLDisplay::paintGL()
     glRotatef(-45,0.0,1.0,0.0);
     // === LUZ ===
     // Spotlight (luminaria)
+
     float light2_diffuse[] = {1.0, 1.0, 1.0};
     float light2_ambient[] = {0.7, 0.7, 0.7};
     float light2_position[] = {0.05, 0.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
@@ -101,18 +102,23 @@ void GLDisplay::paintGL()
     float light2_spot_cutoff = 50; // 0 a 180
     float light2_exponent = 5.0; // 0 a 128
 
-    glEnable(GL_LIGHT2);
-        //glLightfv(GL_LIGHT2, GL_AMBIENT, light2_ambient);
-        glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse);
-        glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
+    // renderizar luz apenas se estiver ativa
+    if (light2_enable)
+        glEnable(GL_LIGHT2);
+    else
+        glDisable(GL_LIGHT2);
 
-        glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
-        glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
-        glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
+    //glLightfv(GL_LIGHT2, GL_AMBIENT, light2_ambient);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse);
+    glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
 
-        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.8);
-        //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
-        //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
+    glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
+    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
+    glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
+
+    glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.8);
+    //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
+    //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
     modelos3d[3].load3dFile("assets/lampada.dae");
     glPopMatrix();
 
