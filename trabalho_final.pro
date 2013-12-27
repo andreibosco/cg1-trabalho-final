@@ -16,12 +16,10 @@ LIBS += -L/usr/local/lib -lassimp -lGLU
 SOURCES += main.cpp\
         mainwindow.cpp \
     gldisplay.cpp \
-    teste.cpp \
     object.cpp
 
 HEADERS  += mainwindow.h \
     gldisplay.h \
-    teste.h \
     object.h
 
 FORMS    += mainwindow.ui
