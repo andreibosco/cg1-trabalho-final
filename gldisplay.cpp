@@ -74,12 +74,29 @@ void GLDisplay::paintGL()
 
     glMatrixMode(GL_MODELVIEW);
 
+    // === OBJETOS ===
+    // não esquecer de adicionar o diretório de assets dentro do diretório de execução
+    //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
+    //modelos3d[0].render(modelos3d[0].scene, modelos3d[0].scene->mRootNode);
+
+    modelos3d[0].load3dFile("assets/chao.dae");
+
+    modelos3d[1].load3dFile("assets/mesa.dae");
+
+    glPushMatrix();
+    glTranslatef(0.0, 0.0, 0.3);
+    modelos3d[2].load3dFile("assets/cadeira.dae");
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0, 0.73, 0.0);
+    glRotatef(-45,0.0,1.0,0.0);
     // === LUZ ===
     // Spotlight (luminaria)
     float light2_diffuse[] = {1.0, 1.0, 1.0};
     float light2_ambient[] = {0.7, 0.7, 0.7};
     //float light2_position[] = {0.0, 1.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
-    float light2_position[] = {0.05, 0.93, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+    float light2_position[] = {0.05, 0.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
     //float light2_direction[] = {0.0, -1.0, 0.0}; // vetor de direção
     float light2_direction[] = {0.496139, -0.868243, 0.0}; // vetor de direção
     float light2_spot_cutoff = 40; // 0 a 180
@@ -97,24 +114,6 @@ void GLDisplay::paintGL()
         glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.5);
         //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
         //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
-
-    // === OBJETOS ===
-    // não esquecer de adicionar o diretório de assets dentro do diretório de execução
-    //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
-    //modelos3d[0].render(modelos3d[0].scene, modelos3d[0].scene->mRootNode);
-
-    modelos3d[0].load3dFile("assets/chao.dae");
-
-    modelos3d[1].load3dFile("assets/mesa.dae");
-
-    glPushMatrix();
-    glTranslatef(0.0, 0.0, 0.3);
-    modelos3d[2].load3dFile("assets/cadeira.dae");
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0.0, 0.73, 0.0);
-    //glRotatef(-45,0.0,1.0,0.0);
     modelos3d[3].load3dFile("assets/lampada.dae");
     glPopMatrix();
 
