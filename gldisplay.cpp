@@ -90,6 +90,7 @@ void GLDisplay::paintGL()
 
     glPushMatrix();
     glTranslatef(0.0, 0.73, 0.0);
+    glTranslatef(-0.25, 0.0, 0.0);
     glRotatef(-45,0.0,1.0,0.0);
     // === LUZ ===
     // Spotlight (luminaria)
@@ -99,7 +100,7 @@ void GLDisplay::paintGL()
     float light2_position[] = {0.05, 0.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
     //float light2_direction[] = {0.0, -1.0, 0.0}; // vetor de direção
     float light2_direction[] = {0.496139, -0.868243, 0.0}; // vetor de direção
-    float light2_spot_cutoff = 40; // 0 a 180
+    float light2_spot_cutoff = 50; // 0 a 180
     float light2_exponent = 5.0; // 0 a 128
 
     glEnable(GL_LIGHT2);
@@ -111,7 +112,7 @@ void GLDisplay::paintGL()
         glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
         glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
 
-        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.5);
+        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
         //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
         //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
     modelos3d[3].load3dFile("assets/lampada.dae");
