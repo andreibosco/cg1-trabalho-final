@@ -55,14 +55,35 @@ void GLDisplay::initializeGL()
     //glEnable(GL_LIGHT1);
         glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
 
+
+
+    // Point light (teste)
+    float light3_diffuse[] = {1.0, 1.0, 1.0};
+    float light3_position[] = {0.0, 0.0, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+
+    //glEnable(GL_LIGHT3);
+        glLightfv(GL_LIGHT3, GL_DIFFUSE, light3_diffuse);
+        glLightfv(GL_LIGHT3, GL_POSITION, light3_position);
+        glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
+}
+
+void GLDisplay::paintGL()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glRotatef(_angleX, 0.0f, 1.0f, 0.0f);
+    //glRotatef(_angleY, 0.5f, 0.0f, 0.0f);
+
+    glMatrixMode(GL_MODELVIEW);
+
     // Spotlight (luminaria)
     float light2_diffuse[] = {1.0, 1.0, 1.0};
-    float light2_position[] = {0.0, 0.73, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+    float light2_position[] = {0.0, 1.5, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
     float light2_direction[] = {0.0, -1.0, 0.0}; // vetor de direção
-    float light2_spot_cutoff = 40; // 0 a 180
-    float light2_exponent = 1.0; // 0 a 128
+    float light2_spot_cutoff = 20; // 0 a 180
+    float light2_exponent = 5.0; // 0 a 128
 
-    //glEnable(GL_LIGHT2);
+    glEnable(GL_LIGHT2);
         glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse);
         glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
 
@@ -73,22 +94,6 @@ void GLDisplay::initializeGL()
         glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
         glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
         glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
-
-    // Point light (teste)
-    float light3_diffuse[] = {1.0, 1.0, 1.0};
-    float light3_position[] = {0.0, 0.0, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
-
-    glEnable(GL_LIGHT3);
-        glLightfv(GL_LIGHT3, GL_DIFFUSE, light3_diffuse);
-        glLightfv(GL_LIGHT3, GL_POSITION, light3_position);
-        glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
-}
-
-void GLDisplay::paintGL()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glMatrixMode(GL_MODELVIEW);
 
 //    gluLookAt(1.0,0.0,0.0,
 //              0.0,0.0,0.0,
@@ -152,4 +157,26 @@ void GLDisplay::resizeGL(int w, int h)
 //    gluLookAt(0.0,2.8,0.0,
 //              0.0,0.0,0.0,
 //              0.0,1.0,1.0);
+}
+
+void GLDisplay::mouseMoveEvent(QMouseEvent *event)
+{
+    if( event != NULL ) {
+        QPoint position = event->pos();
+
+        _angleX += (position.x() - _position.x());
+        _angleY += (position.y() - _position.y());
+
+        _position = position;
+
+        updateGL();
+    }
+}
+
+void GLDisplay::mousePressEvent(QMouseEvent *event)
+{
+    if( event != NULL ) {
+        _position = event->pos();
+
+    }
 }

@@ -2,6 +2,7 @@
 #define GLDISPLAY_H
 
 #include <QGLWidget>
+#include <QMouseEvent>
 
 class GLDisplay : public QGLWidget
 {
@@ -14,6 +15,15 @@ public:
     virtual void resizeGL(int w, int h);
 
     bool loadObj(const char* path);
+
+protected:
+    virtual void mouseMoveEvent ( QMouseEvent * event );
+    virtual void mousePressEvent ( QMouseEvent * event );
+
+private:
+    float _angleX;
+    float _angleY;
+    QPoint _position;
 
 signals:
 
