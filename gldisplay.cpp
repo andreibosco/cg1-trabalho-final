@@ -14,7 +14,7 @@
 //static float angle = 0.f;
 
 // array de objetos
-Object modelos3d[5];
+Object modelos3d[6];
 
 // vetor p/ guardar objetos carregados (não implementado ainda)
 //std::vector<Object *> loadedModels;
@@ -32,7 +32,8 @@ void GLDisplay::initializeGL()
 
     glFrontFace(GL_CCW);
 
-    glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+    //glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+    glClearColor(0.9f, 0.9f, 1.0f, 1.0f);
 
     glColor3f(1.0,1.0,1.0);
 
@@ -42,27 +43,18 @@ void GLDisplay::initializeGL()
     // Shade Model
     glShadeModel(GL_SMOOTH); // GL_FLAT or GL_SMOOTH
 
-    // Diffuse light
+    // Luz de preenchimento (GL_LIGHT0)
     float light0_diffuse[] = {0.5, 0.5, 0.5};
     float light0_specular[] = {1.0, 1.0, 1.0};
 
-    glEnable(GL_LIGHT0);
+    //glEnable(GL_LIGHT0);
         glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
         glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
 
-    // Ambient light
+    // Luz ambiente
     float light1_ambient[] = {0.2, 0.2, 0.2};
     glEnable(GL_LIGHT1);
         glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
-
-    // Point light (teste)
-    float light3_diffuse[] = {1.0, 1.0, 1.0};
-    float light3_position[] = {0.0, 1.0, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
-
-    //glEnable(GL_LIGHT3);
-        glLightfv(GL_LIGHT3, GL_DIFFUSE, light3_diffuse);
-        glLightfv(GL_LIGHT3, GL_POSITION, light3_position);
-        //glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
 }
 
 void GLDisplay::paintGL()
@@ -73,6 +65,15 @@ void GLDisplay::paintGL()
     //glRotatef(_angleY, 0.5f, 0.0f, 0.0f);
 
     glMatrixMode(GL_MODELVIEW);
+
+    // Luz direcional
+    float light3_diffuse[] = {1.0, 1.0, 1.0};
+    float light3_position[] = {0.0, 0.707107, -0.707107, 0.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
+
+    glEnable(GL_LIGHT3);
+        glLightfv(GL_LIGHT3, GL_DIFFUSE, light3_diffuse);
+        glLightfv(GL_LIGHT3, GL_POSITION, light3_position);
+        //glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
 
     // === OBJETOS ===
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
@@ -132,6 +133,11 @@ void GLDisplay::paintGL()
     glRotatef(90,0.0,1.0,0.0);
     glRotatef(-10,1.0,0.0,0.0);
     modelos3d[5].load3dFile("assets/violao.dae");
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0, 0.0, -0.45);
+    modelos3d[5].load3dFile("assets/parede.dae");
     glPopMatrix();
 
     /* loop p/ renderizar os objetos (FIXME: não funcional, render não funciona se for chamado fora do object.cpp)

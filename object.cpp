@@ -66,9 +66,9 @@ void Object::aplicarMaterial(const aiMaterial *mtl)
     {
         color4_to_float4(&specular, c);
     }
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);
+    //glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);  // FIXME: desabilitado temporariamente pois a cena ficou sem contraste
 
-    set_float4(c, 0.2f, 0.2f, 0.2f, 1.0f);
+    set_float4(c, 0.0f, 0.0f, 0.0f, 1.0f);
     if (AI_SUCCESS == aiGetMaterialColor(mtl, AI_MATKEY_COLOR_AMBIENT, &ambient))
     {
         color4_to_float4(&ambient, c);
