@@ -127,6 +127,13 @@ void GLDisplay::paintGL()
     modelos3d[4].load3dFile("assets/livro.dae");
     glPopMatrix();
 
+    glPushMatrix();
+    glTranslatef(0.625, 0.0, 0.0);
+    glRotatef(90,0.0,1.0,0.0);
+    glRotatef(-10,1.0,0.0,0.0);
+    modelos3d[5].load3dFile("assets/violao.dae");
+    glPopMatrix();
+
     /* loop p/ renderizar os objetos (FIXME: não funcional, render não funciona se for chamado fora do object.cpp)
     for (int i = 0; i < 2; i++)
     {
@@ -161,9 +168,9 @@ void GLDisplay::resizeGL(int w, int h)
 //              0.0,1.0,0.0);
 
     // posicao 02 (perspectiva - visao de angulo)
-//    gluLookAt(0.8,1.5,1.1,
-//              -0.14,0.175,-0.31,
-//              0.0,1.0,0.0);
+    gluLookAt(0.8,1.5,1.1,
+              -0.14,0.175,-0.31,
+              0.0,1.0,0.0);
 
     // posicao 03 (topo)
 //    gluLookAt(0.0,2.8,0.0,
@@ -171,9 +178,9 @@ void GLDisplay::resizeGL(int w, int h)
 //              0.0,1.0,1.0);
 
     // posicao 04 (perspectiva - mesa)
-    gluLookAt(-0.45,1.2,0.9,
-              -0.08,0.73,0.0,
-              0.0,1.0,0.0);
+//    gluLookAt(-0.45,1.2,0.9,
+//              -0.08,0.73,0.0,
+//              0.0,1.0,0.0);
 }
 
 void GLDisplay::mouseMoveEvent(QMouseEvent *event)
