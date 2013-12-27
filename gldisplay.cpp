@@ -96,10 +96,8 @@ void GLDisplay::paintGL()
     // Spotlight (luminaria)
     float light2_diffuse[] = {1.0, 1.0, 1.0};
     float light2_ambient[] = {0.7, 0.7, 0.7};
-    //float light2_position[] = {0.0, 1.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
     float light2_position[] = {0.05, 0.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
-    //float light2_direction[] = {0.0, -1.0, 0.0}; // vetor de direção
-    float light2_direction[] = {0.496139, -0.868243, 0.0}; // vetor de direção
+    float light2_direction[] = {0.496139, -0.868243, 0.0}; // vetor de direção (normalizado)
     float light2_spot_cutoff = 50; // 0 a 180
     float light2_exponent = 5.0; // 0 a 128
 
@@ -119,7 +117,7 @@ void GLDisplay::paintGL()
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.0, 0.73, 0.1);
+    glTranslatef(-0.06, 0.73, 0.15);
     modelos3d[4].load3dFile("assets/livro.dae");
     glPopMatrix();
 
