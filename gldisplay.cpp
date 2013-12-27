@@ -10,15 +10,14 @@
 
 #define FRUSTRUM_SIZE 10.0
 
-// the global Assimp scene object
-//const struct aiScene* scene = NULL;
-//GLuint scene_list = 0;
-
 // current rotation angle
 //static float angle = 0.f;
 
+// array de objetos
 Object modelos3d[4];
-std::vector<Object *> loadedModels;
+
+// vetor p/ guardar objetos carregados (não implementado ainda)
+//std::vector<Object *> loadedModels;
 
 GLDisplay::GLDisplay(QWidget *parent) :
     QGLWidget(parent)
@@ -77,6 +76,7 @@ void GLDisplay::paintGL()
 
     glMatrixMode(GL_MODELVIEW);
 
+    // === LUZ ===
     // Spotlight (luminaria)
     float light2_diffuse[] = {1.0, 1.0, 1.0};
     float light2_position[] = {0.0, 1.5, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
@@ -96,10 +96,7 @@ void GLDisplay::paintGL()
         glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
         glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
 
-//    gluLookAt(1.0,0.0,0.0,
-//              0.0,0.0,0.0,
-//              0.0,1.0,0.0);
-
+    // === OBJETOS ===
     // não esquecer de adicionar o diretório de assets dentro do diretório de execução
     //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
     //modelos3d[0].render(modelos3d[0].scene, modelos3d[0].scene->mRootNode);
@@ -119,7 +116,7 @@ void GLDisplay::paintGL()
     modelos3d[3].load3dFile("assets/lampada.dae");
     glPopMatrix();
 
-    /*
+    /* loop p/ renderizar os objetos (FIXME: não funcional, render não funciona se for chamado fora do object.cpp)
     for (int i = 0; i < 2; i++)
     {
         modelos3d[i].render();

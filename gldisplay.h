@@ -6,11 +6,11 @@
 
 #include "object.h"
 
-struct loadedModel {
-    int modelId;
-    Object * modelScene;
-};
-
+// teste de struct p/ guardar objetos
+//struct loadedModel {
+//    int modelId;
+//    Object * modelScene;
+//};
 
 class GLDisplay : public QGLWidget
 {
