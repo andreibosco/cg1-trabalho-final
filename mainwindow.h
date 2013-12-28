@@ -20,6 +20,7 @@ private:
 
 public slots:
     void luzLuminaria();
+    void luzLavaLamp();
     void escolherCamera(int cameraId);
 };
 

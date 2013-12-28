@@ -19,6 +19,9 @@ Object modelos3d[9];
 // camera inicial
 int cameraInicial = 1;
 
+// Luzes
+bool light4_enable;
+
 // vetor p/ guardar objetos carregados (não implementado ainda)
 //std::vector<Object *> loadedModels;
 
@@ -62,6 +65,12 @@ void GLDisplay::initializeGL()
     float light1_ambient[] = {0.2, 0.2, 0.2};
     glEnable(GL_LIGHT1);
     glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+
+    // Lava lamp
+    light4_enable = true;
+
+    // Luminaria
+    light2_enable = true;
 }
 
 void GLDisplay::paintGL()
@@ -107,7 +116,7 @@ void GLDisplay::paintGL()
     // Spotlight (luminaria)
 
     float light2_diffuse[] = {1.0, 1.0, 1.0};
-    float light2_ambient[] = {0.7, 0.7, 0.7};
+    //float light2_ambient[] = {0.7, 0.7, 0.7};
     float light2_position[] = {0.05, 0.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
     float light2_direction[] = {0.496139, -0.868243, 0.0}; // vetor de direção (normalizado)
     float light2_spot_cutoff = 50; // 0 a 180
@@ -176,11 +185,16 @@ void GLDisplay::paintGL()
     float light4_specular[] = {1.0, 1.0, 1.0};
     float light4_position[] = {0.0, 0.3, 0.0, 1.0};
 
-    //glEnable(GL_LIGHT4);
-        glLightfv(GL_LIGHT4, GL_DIFFUSE, light4_diffuse);
-        glLightfv(GL_LIGHT4, GL_SPECULAR, light4_specular);
-        glLightfv(GL_LIGHT4, GL_POSITION, light4_position);
-        glLightf(GL_LIGHT4, GL_QUADRATIC_ATTENUATION, 0.2);
+    if (light4_enable == true)
+        glEnable(GL_LIGHT4);
+    else
+        glDisable(GL_LIGHT4);
+
+
+    glLightfv(GL_LIGHT4, GL_DIFFUSE, light4_diffuse);
+    glLightfv(GL_LIGHT4, GL_SPECULAR, light4_specular);
+    glLightfv(GL_LIGHT4, GL_POSITION, light4_position);
+    glLightf(GL_LIGHT4, GL_QUADRATIC_ATTENUATION, 0.2);
     glPopMatrix();
 
     /* loop p/ renderizar os objetos (FIXME: não funcional, render não funciona se for chamado fora do object.cpp)

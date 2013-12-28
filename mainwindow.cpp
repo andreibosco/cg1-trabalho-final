@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(luzLuminaria()));
+    connect(ui->luminariaBtn, SIGNAL(clicked()), this, SLOT(luzLuminaria()));
+    connect(ui->lavaBtn, SIGNAL(clicked()), this, SLOT(luzLavaLamp()));
     connect(ui->camerasCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(escolherCamera(int)));
 
 }
@@ -21,12 +22,24 @@ MainWindow::~MainWindow()
 
 void MainWindow::luzLuminaria()
 {
-    qDebug() << "status da luz: " << ui->glDisplayWdgt->light2_enable;
+    qDebug() << "status da luz luminaria: " << ui->glDisplayWdgt->light2_enable;
 
     if (!ui->glDisplayWdgt->light2_enable)
         ui->glDisplayWdgt->light2_enable = true;
     else
         ui->glDisplayWdgt->light2_enable = false;
+
+    ui->glDisplayWdgt->updateGL();
+}
+
+void MainWindow::luzLavaLamp()
+{
+    qDebug() << "status da luz lava: " << ui->glDisplayWdgt->light4_enable;
+
+    if (!ui->glDisplayWdgt->light4_enable)
+        ui->glDisplayWdgt->light4_enable = true;
+    else
+        ui->glDisplayWdgt->light4_enable = false;
 
     ui->glDisplayWdgt->updateGL();
 }

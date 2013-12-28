@@ -25,7 +25,8 @@ public:
     void cameraPosicao(int cameraId);
 
     bool loadObj(const char* path);
-    bool light2_enable = true;
+    bool light2_enable;
+    bool light4_enable;
 
     int cameraInicial;
 

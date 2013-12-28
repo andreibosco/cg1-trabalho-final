@@ -32,7 +32,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
-           <string>GroupBox</string>
+           <string>Cameras</string>
           </property>
           <layout class="QFormLayout" name="formLayout">
            <item row="0" column="0">
@@ -71,13 +71,20 @@
            </size>
           </property>
           <property name="title">
-           <string>GroupBox</string>
+           <string>Luzes</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="luminariaBtn">
              <property name="text">
-              <string>PushButton</string>
+              <string>Luminária</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="lavaBtn">
+             <property name="text">
+              <string>Lava Lamp</string>
              </property>
             </widget>
            </item>
