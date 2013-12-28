@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
+    <width>648</width>
     <height>566</height>
    </rect>
   </property>
@@ -57,17 +57,17 @@
            </property>
            <item>
             <property name="text">
+             <string>Geral</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Mesa</string>
             </property>
            </item>
            <item>
             <property name="text">
              <string>Mesa 2</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Geral</string>
             </property>
            </item>
            <item>
@@ -111,7 +111,7 @@
             <enum>Qt::Horizontal</enum>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>17</x>
@@ -140,9 +140,7 @@
             </item>
            </layout>
           </widget>
-          <zorder>pushButton</zorder>
-          <zorder>label</zorder>
-          <zorder>label_2</zorder>
+          <zorder>layoutWidget</zorder>
           <zorder>estiloIlumSlider</zorder>
          </widget>
         </item>
@@ -208,7 +206,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>613</width>
+     <width>648</width>
      <height>24</height>
     </rect>
    </property>

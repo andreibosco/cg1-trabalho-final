@@ -311,21 +311,21 @@ void GLDisplay::cameraPosicao(int cameraId)
 
     if (cameraId == 0)
     {
-        gluLookAt(0.8,1.5,1.1,
-                 -0.14,0.175,-0.31,
+        gluLookAt(1.6,1.7,2.2,
+                  -0.5,0.6,-0.01,
                   0.0,1.0,0.0);
     }
     else if (cameraId == 1)
     {
-        gluLookAt(-0.45,1.2,0.9,
-                  -0.08,0.73,0.0,
-                   0.0,1.0,0.0);
+        gluLookAt(0.8,1.5,1.1,
+                 -0.14,0.175,-0.31,
+                  0.0,1.0,0.0);
     }
     else if (cameraId == 2)
     {
-        gluLookAt(1.6,1.7,2.2,
-                  -0.5,0.6,-0.01,
-                  0.0,1.0,0.0);
+        gluLookAt(-0.45,1.2,0.9,
+                  -0.08,0.73,0.0,
+                   0.0,1.0,0.0);
     }
     else if (cameraId == 3)
     {

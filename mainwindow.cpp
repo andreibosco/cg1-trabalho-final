@@ -23,9 +23,9 @@ MainWindow::~MainWindow()
 void MainWindow::escolherCamera(int cameraId)
 {
     // Ids:
-    // 0: mesa
-    // 1: mesa 2
-    // 2: geral
+    // 0: geral
+    // 1: mesa
+    // 2: mesa 2
     // 3: topo
     ui->glDisplayWdgt->cameraInicial = 0;
     ui->glDisplayWdgt->cameraPosicao(cameraId);
