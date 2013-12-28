@@ -142,7 +142,7 @@ void GLDisplay::paintGL()
 
     glPushMatrix();
     glRotatef(90, 0.0, 1.0, 0.0);
-    glTranslatef(0.0, 0.0, -1.2);
+    glTranslatef(-1.15, 0.0, -1.2);
     modelos3d[6].load3dFile("assets/parede.dae");
     glPopMatrix();
 
@@ -166,9 +166,9 @@ void GLDisplay::resizeGL(int w, int h)
     glLoadIdentity();
 
     if ( w>= h )
-        gluPerspective(45, w/h, 0.5, 5);
+        gluPerspective(40, w/h, 0.5, 5);
     else
-        gluPerspective(45, h/w, 0.5, 5);
+        gluPerspective(40, h/w, 0.5, 5);
 
     glMatrixMode(GL_MODELVIEW);
 
@@ -180,9 +180,9 @@ void GLDisplay::resizeGL(int w, int h)
 //              0.0,1.0,0.0);
 
     // posicao 02 (perspectiva - visao de angulo)
-    gluLookAt(0.8,1.5,1.1,
-              -0.14,0.175,-0.31,
-              0.0,1.0,0.0);
+//    gluLookAt(0.8,1.5,1.1,
+//              -0.14,0.175,-0.31,
+//              0.0,1.0,0.0);
 
     // posicao 03 (topo)
 //    gluLookAt(0.0,2.8,0.0,
@@ -193,6 +193,11 @@ void GLDisplay::resizeGL(int w, int h)
 //    gluLookAt(-0.45,1.2,0.9,
 //              -0.08,0.73,0.0,
 //              0.0,1.0,0.0);
+
+    // posicao 05 (perspectiva - geral)
+    gluLookAt(1.6,2.2,2.2,
+              -0.5,0.475,-0.01,
+              0.0,1.0,0.0);
 }
 
 void GLDisplay::mouseMoveEvent(QMouseEvent *event)
