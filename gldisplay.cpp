@@ -68,14 +68,14 @@ void GLDisplay::initializeGL()
       * Definições das luzes
       */
     // GL_LIGHT0: Luz de preenchimento
-    float light0_diffuse[] = {0.3, 0.3, 0.3};
+    float light0_diffuse[] = {0.5, 0.5, 0.5};
     float light0_specular[] = {1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
     glEnable(GL_LIGHT0);
 
     // GL_LIGHT1: Luz ambiente
-    float light1_ambient[] = {0.2, 0.2, 0.2};
+    float light1_ambient[] = {0.4, 0.4, 0.4};
     glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
     glEnable(GL_LIGHT1);
 
@@ -321,7 +321,7 @@ void GLDisplay::cameraPosicao(int cameraId)
     else if (cameraId == 2)
     {
         gluLookAt(-0.45,1.2,0.9,
-                  -0.08,0.73,0.0,
+                   0.0,0.73,0.0,
                    0.0,1.0,0.0);
     }
     else if (cameraId == 3)
