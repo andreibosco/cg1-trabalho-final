@@ -14,7 +14,7 @@
 //static float angle = 0.f;
 
 // array de objetos
-Object modelos3d[7];
+Object modelos3d[8];
 
 // vetor p/ guardar objetos carregados (não implementado ainda)
 //std::vector<Object *> loadedModels;
@@ -132,6 +132,7 @@ void GLDisplay::paintGL()
     glTranslatef(0.625, 0.0, 0.0);
     glRotatef(90, 0.0, 1.0, 0.0);
     glRotatef(-10, 1.0, 0.0, 0.0);
+    glScalef(1.2,1.2,1.7);
     modelos3d[5].load3dFile("assets/violao.dae");
     glPopMatrix();
 
@@ -144,6 +145,18 @@ void GLDisplay::paintGL()
     glRotatef(90, 0.0, 1.0, 0.0);
     glTranslatef(-1.15, 0.0, -1.2);
     modelos3d[6].load3dFile("assets/parede.dae");
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(90, 0.0, 1.0, 0.0);
+    glTranslatef(-0.5, 0.9, -1.0);
+    modelos3d[7].load3dFile("assets/prateleira.dae");
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(90, 0.0, 1.0, 0.0);
+    glTranslatef(-0.5, 1.3, -1.0);
+    modelos3d[8].load3dFile("assets/prateleira.dae");
     glPopMatrix();
 
     /* loop p/ renderizar os objetos (FIXME: não funcional, render não funciona se for chamado fora do object.cpp)
@@ -195,8 +208,8 @@ void GLDisplay::resizeGL(int w, int h)
 //              0.0,1.0,0.0);
 
     // posicao 05 (perspectiva - geral)
-    gluLookAt(1.6,2.2,2.2,
-              -0.5,0.475,-0.01,
+    gluLookAt(1.6,1.7,2.2,
+              -0.5,0.6,-0.01,
               0.0,1.0,0.0);
 }
 
