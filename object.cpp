@@ -159,6 +159,4 @@ void Object::render(const aiScene *sc, const aiNode* nd)
     //aiMesh* mesh = scene->mMeshes[0]; // first mesh from file
 
     //aplicarMaterial(scene->mMaterials[mesh->mMaterialIndex]);
-
-
 }

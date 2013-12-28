@@ -22,6 +22,7 @@ public slots:
     void luzLuminaria();
     void luzLavaLamp();
     void escolherCamera(int cameraId);
+    void estiloIlum(int ilumId);
 };
 
 #endif // MAINWINDOW_H

@@ -31,64 +31,170 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QGroupBox" name="groupBox_2">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="title">
            <string>Cameras</string>
           </property>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="0" column="0">
-            <widget class="QComboBox" name="camerasCombo">
-             <item>
-              <property name="text">
-               <string>Mesa</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Mesa 2</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Geral</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Topo</string>
-              </property>
-             </item>
-            </widget>
+          <widget class="QComboBox" name="camerasCombo">
+           <property name="geometry">
+            <rect>
+             <x>17</x>
+             <y>25</y>
+             <width>71</width>
+             <height>26</height>
+            </rect>
+           </property>
+           <item>
+            <property name="text">
+             <string>Mesa</string>
+            </property>
            </item>
-          </layout>
+           <item>
+            <property name="text">
+             <string>Mesa 2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Geral</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Topo</string>
+            </property>
+           </item>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Estilo</string>
+          </property>
+          <widget class="QSlider" name="estiloIlumSlider">
+           <property name="geometry">
+            <rect>
+             <x>17</x>
+             <y>33</y>
+             <width>88</width>
+             <height>19</height>
+            </rect>
+           </property>
+           <property name="maximum">
+            <number>1</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+          <widget class="QWidget" name="">
+           <property name="geometry">
+            <rect>
+             <x>17</x>
+             <y>58</y>
+             <width>91</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Dia</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Noite</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <zorder>pushButton</zorder>
+          <zorder>label</zorder>
+          <zorder>label_2</zorder>
+          <zorder>estiloIlumSlider</zorder>
          </widget>
         </item>
         <item>
          <widget class="QGroupBox" name="groupBox">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
-            <width>500</width>
+            <width>120</width>
             <height>16777215</height>
            </size>
           </property>
           <property name="title">
            <string>Luzes</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QPushButton" name="luminariaBtn">
-             <property name="text">
-              <string>Luminária</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="lavaBtn">
-             <property name="text">
-              <string>Lava Lamp</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QPushButton" name="luminariaBtn">
+           <property name="geometry">
+            <rect>
+             <x>17</x>
+             <y>25</y>
+             <width>85</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Luminária</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="lavaBtn">
+           <property name="geometry">
+            <rect>
+             <x>17</x>
+             <y>58</y>
+             <width>85</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Lava Lamp</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>

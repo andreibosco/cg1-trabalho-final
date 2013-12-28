@@ -9,15 +9,37 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    connect(ui->camerasCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(escolherCamera(int)));
+    //connect(ui->diaBtn, SIGNAL(toggled(bool)), this, SLOT(ilumDia(bool)));
+    //connect(ui->noiteBtn, SIGNAL(toggled(bool)), this, SLOT(ilumDia(bool)));
+    //connect(ui->estiloIlumSlider, SIGNAL(sliderMoved(int)), this, SLOT(estiloIlum(int)));
+    connect(ui->estiloIlumSlider, SIGNAL(valueChanged(int)), this, SLOT(estiloIlum(int)));
     connect(ui->luminariaBtn, SIGNAL(clicked()), this, SLOT(luzLuminaria()));
     connect(ui->lavaBtn, SIGNAL(clicked()), this, SLOT(luzLavaLamp()));
-    connect(ui->camerasCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(escolherCamera(int)));
+
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::escolherCamera(int cameraId)
+{
+    // Ids:
+    // 0: mesa
+    // 1: mesa 2
+    // 2: geral
+    // 3: topo
+    ui->glDisplayWdgt->cameraInicial = 0;
+    ui->glDisplayWdgt->cameraPosicao(cameraId);
+}
+
+void MainWindow::estiloIlum(int ilumId)
+{
+    qDebug() << ilumId;
+    ui->glDisplayWdgt->definirIluminacao(ilumId);
 }
 
 void MainWindow::luzLuminaria()
@@ -44,13 +66,3 @@ void MainWindow::luzLavaLamp()
     ui->glDisplayWdgt->updateGL();
 }
 
-void MainWindow::escolherCamera(int cameraId)
-{
-    // Ids:
-    // 0: mesa
-    // 1: mesa 2
-    // 2: geral
-    // 3: topo
-    ui->glDisplayWdgt->cameraInicial = 0;
-    ui->glDisplayWdgt->cameraPosicao(cameraId);
-}

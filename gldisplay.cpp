@@ -16,6 +16,19 @@
 // array de objetos
 Object modelos3d[10];
 
+// array de arquivos
+char* arquivos[] = {"assets/chao.dae",
+                    "assets/mesa.dae",
+                    "assets/cadeira.dae",
+                    "assets/lampada.dae",
+                    "assets/livro.dae",
+                    "assets/violao.dae",
+                    "assets/parede_janela.dae",
+                    "assets/parede.dae",
+                    "assets/prateleira.dae",
+                    "assets/prateleira.dae",
+                    "assets/lava_lamp_vidro.dae"};
+
 // camera inicial
 int cameraInicial = 1;
 
@@ -219,8 +232,34 @@ void GLDisplay::paintGL()
     }
     */
 
-    glFlush();
+    //glFlush();
 
+}
+
+void GLDisplay::adicionarObjeto(char *path)
+{
+    glPushMatrix();
+    glPopMatrix();
+}
+
+void GLDisplay::definirIluminacao(int ilumId)
+{
+    // Ids:
+    // 0 = dia
+    // 1 = noite
+    if (ilumId == 0)
+    {
+        light2_enable = false;
+        light3_enable = true;
+        light4_enable = false;
+    }
+    else
+    {
+        light2_enable = true;
+        light3_enable = false;
+        light4_enable = true;
+    }
+    updateGL();
 }
 
 void GLDisplay::resizeGL(int w, int h)
