@@ -32,8 +32,8 @@ void GLDisplay::initializeGL()
 
     glFrontFace(GL_CCW);
 
-    glClearColor(0.9f, 0.9f, 1.0f, 1.0f); // dia
-    //glClearColor(0.05f, 0.05f, 0.05f, 1.0f); // noite
+    //glClearColor(0.9f, 0.9f, 1.0f, 1.0f); // dia
+    glClearColor(0.05f, 0.05f, 0.05f, 1.0f); // noite
 
     glColor3f(1.0,1.0,1.0);
 
@@ -47,13 +47,13 @@ void GLDisplay::initializeGL()
     float light0_diffuse[] = {0.3, 0.3, 0.3};
     float light0_specular[] = {1.0, 1.0, 1.0};
 
-    glEnable(GL_LIGHT0);
+    //glEnable(GL_LIGHT0);
         glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
         glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
 
     // Luz ambiente
     float light1_ambient[] = {0.2, 0.2, 0.2};
-    glEnable(GL_LIGHT1);
+    //glEnable(GL_LIGHT1);
         glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
 }
 
@@ -70,7 +70,7 @@ void GLDisplay::paintGL()
     float light3_diffuse[] = {1.0, 1.0, 1.0};
     float light3_position[] = {0.0, 0.707107, -0.707107, 0.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
 
-    glEnable(GL_LIGHT3);
+    //glEnable(GL_LIGHT3);
         glLightfv(GL_LIGHT3, GL_DIFFUSE, light3_diffuse);
         glLightfv(GL_LIGHT3, GL_POSITION, light3_position);
         //glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
@@ -169,7 +169,7 @@ void GLDisplay::paintGL()
     float light4_specular[] = {1.0, 1.0, 1.0};
     float light4_position[] = {0.0, 0.3, 0.0, 1.0};
 
-    //glEnable(GL_LIGHT4);
+    glEnable(GL_LIGHT4);
         glLightfv(GL_LIGHT4, GL_DIFFUSE, light4_diffuse);
         glLightfv(GL_LIGHT4, GL_SPECULAR, light4_specular);
         glLightfv(GL_LIGHT4, GL_POSITION, light4_position);

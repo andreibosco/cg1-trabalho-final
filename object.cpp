@@ -52,7 +52,10 @@ void Object::set_float4(float f[4], float a, float b, float c, float d)
 void Object::aplicarMaterial(const aiMaterial *mtl)
 {
     float c[4];
+    int ret1, ret2;
     aiColor4D diffuse, specular, ambient, emission;
+    float shininess, strength;
+    unsigned int max;
 
     set_float4(c, 0.8f, 0.8f, 0.8f, 1.0f);
     if (AI_SUCCESS == aiGetMaterialColor(mtl, AI_MATKEY_COLOR_DIFFUSE, &diffuse))
@@ -66,7 +69,7 @@ void Object::aplicarMaterial(const aiMaterial *mtl)
     {
         color4_to_float4(&specular, c);
     }
-    //glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);  // FIXME: desabilitado temporariamente pois a cena ficou sem contraste
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);  // FIXME: desabilitado temporariamente pois a cena ficou sem contraste
 
     set_float4(c, 0.0f, 0.0f, 0.0f, 1.0f);
     if (AI_SUCCESS == aiGetMaterialColor(mtl, AI_MATKEY_COLOR_AMBIENT, &ambient))
@@ -81,6 +84,29 @@ void Object::aplicarMaterial(const aiMaterial *mtl)
         color4_to_float4(&emission, c);
     }
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, c);
+
+    max = 1;
+    ret1 = aiGetMaterialFloatArray(mtl, AI_MATKEY_SHININESS, &shininess, &max);
+    if (ret1 == AI_SUCCESS)
+    {
+        max = 1;
+        ret2 = aiGetMaterialFloatArray(mtl, AI_MATKEY_SHININESS_STRENGTH, &strength, &max);
+        if (ret2 == AI_SUCCESS)
+        {
+            glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess * strength);
+        }
+        else
+        {
+            glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+        }
+    }
+    else
+    {
+        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0.0f);
+        set_float4(c, 0.0f, 0.0f, 0.0f, 0.0f);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);
+    }
+
 
     //float diffuse[4] = {0.0, 1.0, 0.0, 0.0};
 
