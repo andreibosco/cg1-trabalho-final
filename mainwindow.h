@@ -20,6 +20,7 @@ private:
 
 public slots:
     void luzLuminaria();
+    void escolherCamera(int cameraId);
 };
 
 #endif // MAINWINDOW_H

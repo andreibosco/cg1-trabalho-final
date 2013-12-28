@@ -16,6 +16,9 @@
 // array de objetos
 Object modelos3d[9];
 
+// camera inicial
+int cameraInicial = 1;
+
 // vetor p/ guardar objetos carregados (não implementado ainda)
 //std::vector<Object *> loadedModels;
 
@@ -32,8 +35,8 @@ void GLDisplay::initializeGL()
 
     glFrontFace(GL_CCW);
 
-    //glClearColor(0.9f, 0.9f, 1.0f, 1.0f); // dia
-    glClearColor(0.05f, 0.05f, 0.05f, 1.0f); // noite
+    glClearColor(0.9f, 0.9f, 1.0f, 1.0f); // dia
+    //glClearColor(0.05f, 0.05f, 0.05f, 1.0f); // noite
 
     glColor3f(1.0,1.0,1.0);
 
@@ -51,14 +54,14 @@ void GLDisplay::initializeGL()
     float light0_diffuse[] = {0.3, 0.3, 0.3};
     float light0_specular[] = {1.0, 1.0, 1.0};
 
-    //glEnable(GL_LIGHT0);
-        glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
-        glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
 
     // Luz ambiente
     float light1_ambient[] = {0.2, 0.2, 0.2};
-    //glEnable(GL_LIGHT1);
-        glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+    glEnable(GL_LIGHT1);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
 }
 
 void GLDisplay::paintGL()
@@ -74,7 +77,7 @@ void GLDisplay::paintGL()
     float light3_diffuse[] = {1.0, 1.0, 1.0};
     float light3_position[] = {0.0, 0.707107, -0.707107, 0.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
 
-    //glEnable(GL_LIGHT3);
+    glEnable(GL_LIGHT3);
         glLightfv(GL_LIGHT3, GL_DIFFUSE, light3_diffuse);
         glLightfv(GL_LIGHT3, GL_POSITION, light3_position);
         //glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.9);
@@ -173,7 +176,7 @@ void GLDisplay::paintGL()
     float light4_specular[] = {1.0, 1.0, 1.0};
     float light4_position[] = {0.0, 0.3, 0.0, 1.0};
 
-    glEnable(GL_LIGHT4);
+    //glEnable(GL_LIGHT4);
         glLightfv(GL_LIGHT4, GL_DIFFUSE, light4_diffuse);
         glLightfv(GL_LIGHT4, GL_SPECULAR, light4_specular);
         glLightfv(GL_LIGHT4, GL_POSITION, light4_position);
@@ -208,30 +211,48 @@ void GLDisplay::resizeGL(int w, int h)
 
     glLoadIdentity();
 
-    // posicao 01 (perspectiva - visao de angulo)
-//    gluLookAt(1.0,1.5,1.5,
-//              -0.4,0.0,-0.4,
-//              0.0,1.0,0.0);
+    cameraInicial = 1;
 
-    // posicao 02 (perspectiva - visao de angulo)
-//    gluLookAt(0.8,1.5,1.1,
-//              -0.14,0.175,-0.31,
-//              0.0,1.0,0.0);
+    if (cameraInicial == 1)
+    {
+        // posicao 01 (perspectiva - visao de angulo)
+        gluLookAt(1.0,1.5,1.5,
+                  -0.4,0.0,-0.4,
+                  0.0,1.0,0.0);
+    }
+}
 
-    // posicao 03 (topo)
-//    gluLookAt(0.0,2.8,0.0,
-//              0.0,0.0,0.0,
-//              0.0,1.0,1.0);
+void GLDisplay::cameraPosicao(int cameraId)
+{
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
-    // posicao 04 (perspectiva - mesa)
-//    gluLookAt(-0.45,1.2,0.9,
-//              -0.08,0.73,0.0,
-//              0.0,1.0,0.0);
+    if (cameraId == 0)
+    {
+        gluLookAt(0.8,1.5,1.1,
+                 -0.14,0.175,-0.31,
+                  0.0,1.0,0.0);
+    }
+    else if (cameraId == 1)
+    {
+        gluLookAt(-0.45,1.2,0.9,
+                  -0.08,0.73,0.0,
+                   0.0,1.0,0.0);
+    }
+    else if (cameraId == 2)
+    {
+        gluLookAt(1.6,1.7,2.2,
+                  -0.5,0.6,-0.01,
+                  0.0,1.0,0.0);
+    }
+    else
+    {
+        gluLookAt(0.0,2.8,0.0,
+                  0.0,0.0,0.0,
+                  0.0,1.0,1.0);
+    }
 
-    // posicao 05 (perspectiva - geral)
-    gluLookAt(1.6,1.7,2.2,
-              -0.5,0.6,-0.01,
-              0.0,1.0,0.0);
+    updateGL();
 }
 
 void GLDisplay::mouseMoveEvent(QMouseEvent *event)

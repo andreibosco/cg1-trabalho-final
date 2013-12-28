@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
+    <width>613</width>
     <height>566</height>
    </rect>
   </property>
@@ -25,16 +25,63 @@
           <height>500</height>
          </size>
         </property>
-        <zorder>pushButton</zorder>
        </widget>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="text">
-           <string>PushButton</string>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>GroupBox</string>
           </property>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QComboBox" name="camerasCombo">
+             <item>
+              <property name="text">
+               <string>Mesa</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Mesa 2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Geral</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Topo</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>GroupBox</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -48,7 +95,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>520</width>
+     <width>613</width>
      <height>24</height>
     </rect>
    </property>

@@ -22,9 +22,12 @@ public:
     virtual void paintGL();
     virtual void resizeGL(int w, int h);
 
-    bool loadObj(const char* path);
+    void cameraPosicao(int cameraId);
 
+    bool loadObj(const char* path);
     bool light2_enable = true;
+
+    int cameraInicial;
 
 protected:
     virtual void mouseMoveEvent ( QMouseEvent * event );
