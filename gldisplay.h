@@ -23,8 +23,6 @@ public:
     virtual void resizeGL(int w, int h);
 
     void cameraPosicao(int cameraId);
-
-    void adicionarObjeto(char* path);
     void definirIluminacao(int ilumId);
 
     bool light0_enable,
