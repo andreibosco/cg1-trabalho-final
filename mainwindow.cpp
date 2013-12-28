@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->estiloIlumSlider, SIGNAL(valueChanged(int)), this, SLOT(estiloIlum(int)));
     connect(ui->luminariaBtn, SIGNAL(clicked()), this, SLOT(luzLuminaria()));
     connect(ui->lavaBtn, SIGNAL(clicked()), this, SLOT(luzLavaLamp()));
+    connect(ui->notebookBtn, SIGNAL(clicked()), this, SLOT(luzNotebook()));
 }
 
 MainWindow::~MainWindow()
@@ -42,11 +43,13 @@ void MainWindow::estiloIlum(int ilumId)
     {
         ui->luminariaBtn->setChecked(false);
         ui->lavaBtn->setChecked(false);
+        ui->notebookBtn->setChecked(false);
     }
     else
     {
         ui->luminariaBtn->setChecked(true);
         ui->lavaBtn->setChecked(true);
+        ui->notebookBtn->setChecked(true);
     }
 }
 
@@ -69,4 +72,15 @@ void MainWindow::luzLavaLamp()
 
     ui->glDisplayWdgt->updateGL();
 }
+
+void MainWindow::luzNotebook()
+{
+    if (!ui->glDisplayWdgt->light5_enable)
+        ui->glDisplayWdgt->light5_enable = true;
+    else
+        ui->glDisplayWdgt->light5_enable = false;
+
+    ui->glDisplayWdgt->updateGL();
+}
+
 

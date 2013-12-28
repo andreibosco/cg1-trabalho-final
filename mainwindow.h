@@ -19,10 +19,11 @@ private:
     Ui::MainWindow *ui;
 
 public slots:
-    void luzLuminaria();
-    void luzLavaLamp();
     void escolherCamera(int cameraId);
     void estiloIlum(int ilumId);
+    void luzLuminaria();
+    void luzLavaLamp();
+    void luzNotebook();
 };
 
 #endif // MAINWINDOW_H

@@ -21,7 +21,8 @@ char* arquivos[] = {(char *)"assets/chao.dae",
                     (char *)"assets/parede.dae",
                     (char *)"assets/prateleira.dae",
                     (char *)"assets/prateleira.dae",
-                    (char *)"assets/lava_lamp_vidro.dae"};
+                    (char *)"assets/lava_lamp_vidro.dae",
+                    (char *)"assets/notebook.dae"};
 int const arquivosSize = (sizeof(arquivos)/sizeof(*arquivos));
 
 // array de objetos
@@ -89,6 +90,10 @@ void GLDisplay::initializeGL()
     // GL_LIGHT4: Lava lamp
     // Luz em MODELVIEW p/ ser afetada pela posição da câmera
     light4_enable = false;
+
+    // GL_LIGHT5: Tela notebook
+    // Luz em MODELVIEW p/ ser afetada pela posição da câmera
+    light5_enable = false;
 
     // Definindo status da camera inicial
     cameraInicial = 1;
@@ -208,6 +213,22 @@ void GLDisplay::paintGL()
             else
                 glDisable(GL_LIGHT4);
         }
+        if (i == 11) // notebook
+        {
+            glRotatef(160, 0.0, 1.0, 0.0);
+            glTranslatef(-0.20, 0.73, 0.2);
+            float light5_diffuse[] = {0.0, 0.0, 0.5};
+            //float light5_specular[] = {1.0, 1.0, 1.0};
+            float light5_position[] = {0.0, 0.1, 0.0, 1.0};
+            glLightfv(GL_LIGHT5, GL_DIFFUSE, light5_diffuse);
+            //glLightfv(GL_LIGHT5, GL_SPECULAR, light5_specular);
+            glLightfv(GL_LIGHT5, GL_POSITION, light5_position);
+            glLightf(GL_LIGHT5, GL_QUADRATIC_ATTENUATION, 0.2);
+            if (light5_enable == true)
+                glEnable(GL_LIGHT5);
+            else
+                glDisable(GL_LIGHT5);
+        }
 
         modelos3d[i].load3dFile(arquivos[i]);
         glPopMatrix();
@@ -230,6 +251,7 @@ void GLDisplay::definirIluminacao(int ilumId)
         light2_enable = false;
         light3_enable = true;
         light4_enable = false;
+        light5_enable = false;
     }
     else
     {
@@ -239,6 +261,7 @@ void GLDisplay::definirIluminacao(int ilumId)
         light2_enable = true;
         light3_enable = false;
         light4_enable = true;
+        light5_enable = true;
     }
     updateGL();
 }

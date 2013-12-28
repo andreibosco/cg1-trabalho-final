@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
+    <width>654</width>
     <height>566</height>
    </rect>
   </property>
@@ -29,6 +29,9 @@
       </item>
       <item>
        <layout class="QFormLayout" name="formLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
         <item row="0" column="0">
          <widget class="QGroupBox" name="camerasGrpBox">
           <property name="minimumSize">
@@ -155,7 +158,7 @@
           <property name="minimumSize">
            <size>
             <width>120</width>
-            <height>100</height>
+            <height>120</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -167,37 +170,47 @@
           <property name="title">
            <string>Luzes</string>
           </property>
-          <widget class="QPushButton" name="luminariaBtn">
+          <widget class="QWidget" name="">
            <property name="geometry">
             <rect>
              <x>17</x>
              <y>25</y>
-             <width>85</width>
-             <height>27</height>
+             <width>87</width>
+             <height>95</height>
             </rect>
            </property>
-           <property name="text">
-            <string>Luminária</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="lavaBtn">
-           <property name="geometry">
-            <rect>
-             <x>17</x>
-             <y>58</y>
-             <width>85</width>
-             <height>27</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Lava Lamp</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QPushButton" name="luminariaBtn">
+              <property name="text">
+               <string>Luminária</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="lavaBtn">
+              <property name="text">
+               <string>Lava Lamp</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="notebookBtn">
+              <property name="text">
+               <string>Notebook</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -212,7 +225,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>648</width>
+     <width>654</width>
      <height>24</height>
     </rect>
    </property>

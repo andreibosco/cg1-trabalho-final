@@ -29,7 +29,8 @@ public:
          light1_enable,
          light2_enable,
          light3_enable,
-         light4_enable;
+         light4_enable,
+         light5_enable;
 
     int cameraInicial;
 
