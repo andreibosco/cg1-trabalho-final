@@ -43,6 +43,10 @@ void GLDisplay::initializeGL()
     // Shade Model
     glShadeModel(GL_SMOOTH); // GL_FLAT or GL_SMOOTH
 
+    // Blend (necessário p/ transparência por alpha)
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     // Luz de preenchimento (GL_LIGHT0)
     float light0_diffuse[] = {0.3, 0.3, 0.3};
     float light0_specular[] = {1.0, 1.0, 1.0};
@@ -164,7 +168,7 @@ void GLDisplay::paintGL()
 
     glPushMatrix();
     glTranslatef(-1.0, 0.93, 0.5);
-    modelos3d[9].load3dFile("assets/lava_lamp.dae");
+    modelos3d[9].load3dFile("assets/lava_lamp_vidro.dae");
     float light4_diffuse[] = {0.5, 0.0, 0.0};
     float light4_specular[] = {1.0, 1.0, 1.0};
     float light4_position[] = {0.0, 0.3, 0.0, 1.0};
