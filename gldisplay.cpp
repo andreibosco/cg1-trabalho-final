@@ -14,7 +14,7 @@
 //static float angle = 0.f;
 
 // array de objetos
-Object modelos3d[8];
+Object modelos3d[9];
 
 // vetor p/ guardar objetos carregados (não implementado ainda)
 //std::vector<Object *> loadedModels;
@@ -32,8 +32,8 @@ void GLDisplay::initializeGL()
 
     glFrontFace(GL_CCW);
 
-    //glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
-    glClearColor(0.9f, 0.9f, 1.0f, 1.0f);
+    glClearColor(0.9f, 0.9f, 1.0f, 1.0f); // dia
+    //glClearColor(0.05f, 0.05f, 0.05f, 1.0f); // noite
 
     glColor3f(1.0,1.0,1.0);
 
@@ -44,10 +44,10 @@ void GLDisplay::initializeGL()
     glShadeModel(GL_SMOOTH); // GL_FLAT or GL_SMOOTH
 
     // Luz de preenchimento (GL_LIGHT0)
-    float light0_diffuse[] = {0.5, 0.5, 0.5};
+    float light0_diffuse[] = {0.3, 0.3, 0.3};
     float light0_specular[] = {1.0, 1.0, 1.0};
 
-    //glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT0);
         glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
         glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
 
@@ -80,7 +80,10 @@ void GLDisplay::paintGL()
     //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
     //modelos3d[0].render(modelos3d[0].scene, modelos3d[0].scene->mRootNode);
 
+    glPushMatrix();
+    glTranslatef(0.0, 0.0, 1.0);
     modelos3d[0].load3dFile("assets/chao.dae");
+    glPopMatrix();
 
     modelos3d[1].load3dFile("assets/mesa.dae");
 
@@ -117,9 +120,9 @@ void GLDisplay::paintGL()
     glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, light2_spot_cutoff);
     glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, light2_exponent);
 
-    glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.8);
+    //glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.8);
     //glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.5);
-    //glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
+    glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2);
     modelos3d[3].load3dFile("assets/lampada.dae");
     glPopMatrix();
 
@@ -155,8 +158,22 @@ void GLDisplay::paintGL()
 
     glPushMatrix();
     glRotatef(90, 0.0, 1.0, 0.0);
-    glTranslatef(-0.5, 1.3, -1.0);
+    glTranslatef(-0.5, 1.5, -1.0);
     modelos3d[8].load3dFile("assets/prateleira.dae");
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-1.0, 0.93, 0.5);
+    modelos3d[9].load3dFile("assets/lava_lamp.dae");
+    float light4_diffuse[] = {0.5, 0.0, 0.0};
+    float light4_specular[] = {1.0, 1.0, 1.0};
+    float light4_position[] = {0.0, 0.3, 0.0, 1.0};
+
+    //glEnable(GL_LIGHT4);
+        glLightfv(GL_LIGHT4, GL_DIFFUSE, light4_diffuse);
+        glLightfv(GL_LIGHT4, GL_SPECULAR, light4_specular);
+        glLightfv(GL_LIGHT4, GL_POSITION, light4_position);
+        glLightf(GL_LIGHT4, GL_QUADRATIC_ATTENUATION, 0.2);
     glPopMatrix();
 
     /* loop p/ renderizar os objetos (FIXME: não funcional, render não funciona se for chamado fora do object.cpp)
