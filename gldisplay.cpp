@@ -10,24 +10,22 @@
 
 #define FRUSTRUM_SIZE 10.0
 
-// current rotation angle
-//static float angle = 0.f;
+// array de path dos arquivos
+char* arquivos[] = {(char *)"assets/chao.dae",
+                    (char *)"assets/mesa.dae",
+                    (char *)"assets/cadeira.dae",
+                    (char *)"assets/lampada.dae",
+                    (char *)"assets/livro.dae",
+                    (char *)"assets/violao.dae",
+                    (char *)"assets/parede_janela.dae",
+                    (char *)"assets/parede.dae",
+                    (char *)"assets/prateleira.dae",
+                    (char *)"assets/prateleira.dae",
+                    (char *)"assets/lava_lamp_vidro.dae"};
+int const arquivosSize = (sizeof(arquivos)/sizeof(*arquivos));
 
 // array de objetos
-Object modelos3d[10];
-
-// array de arquivos
-char* arquivos[] = {"assets/chao.dae",
-                    "assets/mesa.dae",
-                    "assets/cadeira.dae",
-                    "assets/lampada.dae",
-                    "assets/livro.dae",
-                    "assets/violao.dae",
-                    "assets/parede_janela.dae",
-                    "assets/parede.dae",
-                    "assets/prateleira.dae",
-                    "assets/prateleira.dae",
-                    "assets/lava_lamp_vidro.dae"};
+Object modelos3d[arquivosSize];
 
 // camera inicial
 int cameraInicial;
@@ -92,6 +90,7 @@ void GLDisplay::initializeGL()
     // Luz em MODELVIEW p/ ser afetada pela posição da câmera
     light4_enable = false;
 
+    // Definindo status da camera inicial
     cameraInicial = 1;
 }
 
@@ -126,7 +125,7 @@ void GLDisplay::paintGL()
     //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
     //modelos3d[0].render(modelos3d[0].scene, modelos3d[0].scene->mRootNode);
 
-    int arquivosSize = (sizeof(arquivos)/sizeof(*arquivos));
+    //int arquivosSize = (sizeof(arquivos)/sizeof(*arquivos));
 
     // loop de renderização dos objetos
     for (int i = 0; i<arquivosSize; i++)
