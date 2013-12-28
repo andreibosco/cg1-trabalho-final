@@ -17,20 +17,20 @@
 Object modelos3d[10];
 
 // array de arquivos
-char* arquivos[] = {"assets/chao.dae",
-                    "assets/mesa.dae",
-                    "assets/cadeira.dae",
-                    "assets/lampada.dae",
-                    "assets/livro.dae",
-                    "assets/violao.dae",
-                    "assets/parede_janela.dae",
-                    "assets/parede.dae",
-                    "assets/prateleira.dae",
-                    "assets/prateleira.dae",
-                    "assets/lava_lamp_vidro.dae"};
+//char* arquivos[] = {"assets/chao.dae",
+//                    "assets/mesa.dae",
+//                    "assets/cadeira.dae",
+//                    "assets/lampada.dae",
+//                    "assets/livro.dae",
+//                    "assets/violao.dae",
+//                    "assets/parede_janela.dae",
+//                    "assets/parede.dae",
+//                    "assets/prateleira.dae",
+//                    "assets/prateleira.dae",
+//                    "assets/lava_lamp_vidro.dae"};
 
 // camera inicial
-int cameraInicial = 1;
+int cameraInicial;
 
 // Luzes
 bool light4_enable;
@@ -92,6 +92,7 @@ void GLDisplay::initializeGL()
     // Luz em MODELVIEW p/ ser afetada pela posição da câmera
     light4_enable = false;
 
+    cameraInicial = 1;
 }
 
 void GLDisplay::paintGL()
@@ -236,11 +237,11 @@ void GLDisplay::paintGL()
 
 }
 
-void GLDisplay::adicionarObjeto(char *path)
-{
-    glPushMatrix();
-    glPopMatrix();
-}
+//void GLDisplay::adicionarObjeto(char *path)
+//{
+//    glPushMatrix();
+//    glPopMatrix();
+//}
 
 void GLDisplay::definirIluminacao(int ilumId)
 {
@@ -249,12 +250,18 @@ void GLDisplay::definirIluminacao(int ilumId)
     // 1 = noite
     if (ilumId == 0)
     {
+        glEnable(GL_LIGHT0);
+        glEnable(GL_LIGHT1);
+        glClearColor(0.9f, 0.9f, 1.0f, 1.0f);
         light2_enable = false;
         light3_enable = true;
         light4_enable = false;
     }
     else
     {
+        glDisable(GL_LIGHT0);
+        glDisable(GL_LIGHT1);
+        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         light2_enable = true;
         light3_enable = false;
         light4_enable = true;
@@ -275,26 +282,30 @@ void GLDisplay::resizeGL(int w, int h)
     else
         gluPerspective(40, h/w, 0.5, 5);
 
-    glMatrixMode(GL_MODELVIEW);
-
-    glLoadIdentity();
-
-    cameraInicial = 1;
-
     if (cameraInicial == 1)
     {
+
+        glMatrixMode(GL_MODELVIEW);
+
+        glLoadIdentity();
+
         // posicao 01 (perspectiva - visao de angulo)
 //        gluLookAt(1.0,1.5,1.5,
 //                  -0.4,0.0,-0.4,
 //                  0.0,1.0,0.0);
-        gluLookAt(1.0, 2.15, -3.3,
-                  0.0, 0.9, 0.0,
-                  0.0, 1.0, 0.0);
+        gluLookAt(1.6,1.7,2.2,
+                  -0.5,0.6,-0.01,
+                  0.0,1.0,0.0);
+        // visao externa de teste
+//        gluLookAt(1.0, 2.15, -3.3,
+//                  0.0, 0.9, 0.0,
+//                  0.0, 1.0, 0.0);
     }
 }
 
 void GLDisplay::cameraPosicao(int cameraId)
 {
+    cameraInicial = 0;
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 

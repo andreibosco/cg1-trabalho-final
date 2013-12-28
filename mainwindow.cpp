@@ -10,14 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->camerasCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(escolherCamera(int)));
-    //connect(ui->diaBtn, SIGNAL(toggled(bool)), this, SLOT(ilumDia(bool)));
-    //connect(ui->noiteBtn, SIGNAL(toggled(bool)), this, SLOT(ilumDia(bool)));
-    //connect(ui->estiloIlumSlider, SIGNAL(sliderMoved(int)), this, SLOT(estiloIlum(int)));
     connect(ui->estiloIlumSlider, SIGNAL(valueChanged(int)), this, SLOT(estiloIlum(int)));
     connect(ui->luminariaBtn, SIGNAL(clicked()), this, SLOT(luzLuminaria()));
     connect(ui->lavaBtn, SIGNAL(clicked()), this, SLOT(luzLavaLamp()));
-
-
 }
 
 MainWindow::~MainWindow()
@@ -38,14 +33,25 @@ void MainWindow::escolherCamera(int cameraId)
 
 void MainWindow::estiloIlum(int ilumId)
 {
-    qDebug() << ilumId;
+    // Ids:
+    // 0: dia
+    // 1: noite
     ui->glDisplayWdgt->definirIluminacao(ilumId);
+
+    if (ilumId == 0)
+    {
+        ui->luminariaBtn->setChecked(false);
+        ui->lavaBtn->setChecked(false);
+    }
+    else
+    {
+        ui->luminariaBtn->setChecked(true);
+        ui->lavaBtn->setChecked(true);
+    }
 }
 
 void MainWindow::luzLuminaria()
 {
-    qDebug() << "status da luz luminaria: " << ui->glDisplayWdgt->light2_enable;
-
     if (!ui->glDisplayWdgt->light2_enable)
         ui->glDisplayWdgt->light2_enable = true;
     else
@@ -56,8 +62,6 @@ void MainWindow::luzLuminaria()
 
 void MainWindow::luzLavaLamp()
 {
-    qDebug() << "status da luz lava: " << ui->glDisplayWdgt->light4_enable;
-
     if (!ui->glDisplayWdgt->light4_enable)
         ui->glDisplayWdgt->light4_enable = true;
     else

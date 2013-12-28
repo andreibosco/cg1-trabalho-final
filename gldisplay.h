@@ -27,7 +27,9 @@ public:
     void adicionarObjeto(char* path);
     void definirIluminacao(int ilumId);
 
-    bool light2_enable,
+    bool light0_enable,
+         light1_enable,
+         light2_enable,
          light3_enable,
          light4_enable;
 
