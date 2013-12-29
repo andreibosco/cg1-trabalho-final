@@ -1,15 +1,11 @@
 #include "gldisplay.h"
+#include "object.h"
 
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-#include "object.h"
-
-#include <QDebug>
 #include <QDateTime>
-
-#define FRUSTRUM_SIZE 10.0
 
 // array de path dos arquivos
 char* arquivos[] = {(char *)"assets/chao.dae",
@@ -37,9 +33,6 @@ int cameraInicial;
 
 // Luzes
 bool light4_enable;
-
-// vetor p/ guardar objetos carregados (não implementado ainda)
-//std::vector<Object *> loadedModels;
 
 GLDisplay::GLDisplay(QWidget *parent) :
     QGLWidget(parent)
@@ -110,13 +103,7 @@ void GLDisplay::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Rotação do cenário a partir da posição do mouse
-    // FIXME: remover, isso é apenas para debug
-    //glRotatef(_angleX, 0.0f, 1.0f, 0.0f);
-    //glRotatef(_angleY, 0.5f, 0.0f, 0.0f);
-
     renderizarObjetos();
-
 }
 
 void GLDisplay::resizeGL(int w, int h)
@@ -139,17 +126,9 @@ void GLDisplay::resizeGL(int w, int h)
 
         glLoadIdentity();
 
-        // posicao 01 (perspectiva - visao de angulo)
-//        gluLookAt(1.0,1.5,1.5,
-//                  -0.4,0.0,-0.4,
-//                  0.0,1.0,0.0);
         gluLookAt(1.6,1.7,2.2,
                   -0.5,0.6,-0.01,
                   0.0,1.0,0.0);
-        // visao externa de teste
-//        gluLookAt(1.0, 2.15, -3.3,
-//                  0.0, 0.9, 0.0,
-//                  0.0, 1.0, 0.0);
     }
 
     glMatrixMode(GL_MODELVIEW);
@@ -187,18 +166,16 @@ void GLDisplay::renderizarObjetos()
         {
             glTranslatef(0.0, 0.0, 0.3);
         }
-        if (i == 3) // lampada
+        if (i == 3) // luminária
         {
             glTranslatef(-0.25, 0.73, 0.0);
             glRotatef(-45,0.0,1.0,0.0);
             // GL_LIGHT2: Luz luminária de mesa
             float light2_diffuse[] = {1.0, 1.0, 1.0};
-            //float light2_ambient[] = {0.7, 0.7, 0.7};
             float light2_position[] = {0.05, 0.2, 0.0, 1.0}; // x, y, z, w (w = 1 p/ ponto, 0 p/ vetor)
             float light2_direction[] = {0.496139, -0.868243, 0.0}; // vetor de direção (normalizado)
             float light2_spot_cutoff = 50; // 0 a 180
             float light2_exponent = 5.0; // 0 a 128
-            //glLightfv(GL_LIGHT2, GL_AMBIENT, light2_ambient);
             glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse);
             glLightfv(GL_LIGHT2, GL_POSITION, light2_position);
             glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light2_direction);
@@ -260,10 +237,8 @@ void GLDisplay::renderizarObjetos()
             glRotatef(160, 0.0, 1.0, 0.0);
             glTranslatef(-0.20, 0.73, 0.2);
             float light5_diffuse[] = {0.0, 0.0, 0.5};
-            //float light5_specular[] = {1.0, 1.0, 1.0};
             float light5_position[] = {0.0, 0.1, 0.0, 1.0};
             glLightfv(GL_LIGHT5, GL_DIFFUSE, light5_diffuse);
-            //glLightfv(GL_LIGHT5, GL_SPECULAR, light5_specular);
             glLightfv(GL_LIGHT5, GL_POSITION, light5_position);
             glLightf(GL_LIGHT5, GL_QUADRATIC_ATTENUATION, 0.2);
             if (light5_enable == true)
@@ -328,21 +303,6 @@ void GLDisplay::textoNotebook(QString texto)
 {
     glPushMatrix();
 
-    // Maneira 1 - texto 2d
-    /*
-    QFont myFont("Helvetica", 24);
-    myFont.setPointSize(30);
-    renderText(0,0,0,"TESTE DE TEXTO", myFont);
-
-    glDisable(GL_DEPTH_TEST);
-    glColor3f(1.0, 0.0, 0.0);
-    float zz=-.5;
-
-    renderText(0, 0, zz,tr("Teste de texto"),QFont("Arial",12));
-    //renderText(0,.5, zz,tr("Outro texto"),QFont("Arial",12));
-    */
-
-    // Maneira 2 - texto 3d
     glDisable(GL_LIGHTING);
 
     glColor3f(1.0, 1.0, 1.0);
@@ -355,7 +315,6 @@ void GLDisplay::textoNotebook(QString texto)
     QPainterPath path;
     QFont font("Arial");
     font.setPixelSize(1);
-    //path.addText(QPointF(0, 0), font, QString(tr("CG 2013.2")));
     path.addText(QPointF(0, 0), font, QString(texto));
     QList<QPolygonF> poly = path.toSubpathPolygons();
     for (QList<QPolygonF>::iterator i = poly.begin(); i != poly.end(); i++){
@@ -395,6 +354,7 @@ void GLDisplay::definirIluminacao(int ilumId)
         light4_enable = true;
         light5_enable = true;
     }
+
     updateGL();
 }
 
@@ -436,26 +396,4 @@ void GLDisplay::cameraPosicao(int cameraId)
     }
 
     updateGL();
-}
-
-void GLDisplay::mouseMoveEvent(QMouseEvent *event)
-{
-    if( event != NULL ) {
-        QPoint position = event->pos();
-
-        _angleX += (position.x() - _position.x());
-        _angleY += (position.y() - _position.y());
-
-        _position = position;
-
-        updateGL();
-    }
-}
-
-void GLDisplay::mousePressEvent(QMouseEvent *event)
-{
-    if( event != NULL ) {
-        _position = event->pos();
-
-    }
 }

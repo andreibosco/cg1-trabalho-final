@@ -2,15 +2,8 @@
 #define GLDISPLAY_H
 
 #include <QGLWidget>
-#include <QMouseEvent>
 
 #include "object.h"
-
-// teste de struct p/ guardar objetos
-//struct loadedModel {
-//    int modelId;
-//    Object * modelScene;
-//};
 
 class GLDisplay : public QGLWidget
 {
@@ -38,10 +31,6 @@ public:
     int cameraInicial;
 
     QString texto;
-
-protected:
-    virtual void mouseMoveEvent ( QMouseEvent * event );
-    virtual void mousePressEvent ( QMouseEvent * event );
 
 private:
     float _angleX;

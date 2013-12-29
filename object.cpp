@@ -2,7 +2,6 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/freeglut.h>
 
 #include <assimp/Importer.hpp> // C++ importer
 #include <assimp/scene.h> // collects data
@@ -16,7 +15,8 @@ Object::Object()
 
 bool Object::load3dFile(const char* path)
 {
-    Assimp::Importer importer; // criando instancia de Importer
+    // criando instancia de Importer
+    Assimp::Importer importer;
     scene = importer.ReadFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
     if (!scene)
@@ -27,8 +27,7 @@ bool Object::load3dFile(const char* path)
 
     else
     {
-       //qDebug() << "arquivo carregado com sucesso";
-       render(scene, scene->mRootNode); // FIXME: render não funciona se chamado a partir do gldisplay.cpp
+       render(scene, scene->mRootNode);
        return true;
     }
 }
@@ -106,17 +105,12 @@ void Object::aplicarMaterial(const aiMaterial *mtl)
         set_float4(c, 0.0f, 0.0f, 0.0f, 0.0f);
         glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);
     }
-
-
-    //float diffuse[4] = {0.0, 1.0, 0.0, 0.0};
-
 }
 
 void Object::render(const aiScene *sc, const aiNode* nd)
 {
     for (uint n = 0; n < nd->mNumMeshes; n++)
     {
-        //qDebug() << nd->mNumMeshes;
         aiMesh* mesh = sc->mMeshes[nd->mMeshes[n]];
         aplicarMaterial(sc->mMaterials[mesh->mMaterialIndex]);
 
@@ -151,12 +145,8 @@ void Object::render(const aiScene *sc, const aiNode* nd)
         }
 
     }
-
     for (uint n = 0; n < nd->mNumChildren; n++)
     {
         render(sc, nd->mChildren[n]);
     }
-    //aiMesh* mesh = scene->mMeshes[0]; // first mesh from file
-
-    //aplicarMaterial(scene->mMaterials[mesh->mMaterialIndex]);
 }

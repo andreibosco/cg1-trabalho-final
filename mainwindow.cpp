@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QDebug>
 #include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -102,7 +101,6 @@ void MainWindow::luz(int luzId)
 
 void MainWindow::textoNotebook(QString textoInput)
 {
-    //QString textoInput = ui->notebookText->text();
     ui->glDisplayWdgt->texto = textoInput;
     ui->glDisplayWdgt->updateGL();
 }
