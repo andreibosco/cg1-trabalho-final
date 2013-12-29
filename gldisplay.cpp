@@ -7,6 +7,7 @@
 #include "object.h"
 
 #include <QDebug>
+#include <QDateTime>
 
 #define FRUSTRUM_SIZE 10.0
 
@@ -242,6 +243,18 @@ void GLDisplay::renderizarObjetos()
         {
             glTranslatef(-1.0, 0.93, 0.15);
             glRotatef(70, 0.0, 1.0, 0.0);
+        }
+        if (i == 13 ) // ponteiro de hora
+        {
+            glTranslatef(0.0, 0.16, 0.0);
+            glRotatef(180, 0.0, 0.0, 1.0);
+            glTranslatef(0.0, -0.16, 0.0);
+        }
+        if (i == 14) // ponteiro do minuto
+        {
+            glTranslatef(0.0, 0.16, 0.0);
+            glRotatef(-60, 0.0, 0.0, 1.0);
+            glTranslatef(0.0, -0.16, 0.0);
         }
 
         modelos3d[i].load3dFile(arquivos[i]);
