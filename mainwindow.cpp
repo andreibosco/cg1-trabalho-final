@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->luminariaBtn, SIGNAL(clicked()), signalLuzes, SLOT(map()));
     connect(ui->lavaBtn, SIGNAL(clicked()), signalLuzes, SLOT(map()));
     connect(ui->notebookBtn, SIGNAL(clicked()), signalLuzes, SLOT(map()));
-    connect(ui->notebookText, SIGNAL(textChanged()), this, SLOT(textoNotebook()));
+    connect(ui->notebookText, SIGNAL(textChanged(QString)), this, SLOT(textoNotebook(QString)));
 
     // mapeando sinais dos botões das luzes
     signalLuzes->setMapping(ui->luminariaBtn, 0);
@@ -100,8 +100,9 @@ void MainWindow::luz(int luzId)
     ui->glDisplayWdgt->updateGL();
 }
 
-void MainWindow::textoNotebook()
+void MainWindow::textoNotebook(QString textoInput)
 {
-    QString texto = ui->notebookText->toPlainText();
-    qDebug() << texto;
+    //QString textoInput = ui->notebookText->text();
+    ui->glDisplayWdgt->texto = textoInput;
+    ui->glDisplayWdgt->updateGL();
 }

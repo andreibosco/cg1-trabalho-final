@@ -101,6 +101,9 @@ void GLDisplay::initializeGL()
 
     // Definindo status da camera inicial
     cameraInicial = 1;
+
+    // Texto inicial do notebook
+    texto = "CG 2013.2";
 }
 
 void GLDisplay::paintGL()
@@ -171,15 +174,11 @@ void GLDisplay::renderizarObjetos()
     else
         glDisable(GL_LIGHT3);
 
-    //modelos3d[0].load3dFile("assets/sala-teste.dae"); // referencia
-    //modelos3d[0].render(modelos3d[0].scene, modelos3d[0].scene->mRootNode);
-
-    //int arquivosSize = (sizeof(arquivos)/sizeof(*arquivos));
-
     // loop de renderização dos objetos
     for (int i = 0; i<arquivosSize; i++)
     {
         glPushMatrix();
+
         if (i == 0) // chao
         {
             glTranslatef(0.0, 0.0, 1.0);
@@ -192,7 +191,6 @@ void GLDisplay::renderizarObjetos()
         {
             glTranslatef(-0.25, 0.73, 0.0);
             glRotatef(-45,0.0,1.0,0.0);
-            glScalef(1.5,1.5,1.7);
             // GL_LIGHT2: Luz luminária de mesa
             float light2_diffuse[] = {1.0, 1.0, 1.0};
             //float light2_ambient[] = {0.7, 0.7, 0.7};
@@ -221,7 +219,6 @@ void GLDisplay::renderizarObjetos()
             glTranslatef(0.625, 0.0, 0.0);
             glRotatef(90, 0.0, 1.0, 0.0);
             glRotatef(-10, 1.0, 0.0, 0.0);
-            glScalef(1.2,1.2,1.7);
         }
         if (i == 6) // parede com janela
         {
@@ -273,10 +270,7 @@ void GLDisplay::renderizarObjetos()
                 glEnable(GL_LIGHT5);
             else
                 glDisable(GL_LIGHT5);
-
-            textoNotebook();
-            //draw_text(0.0, 0.0, 0.0, "Testando escrita");
-
+            textoNotebook(texto); // texto exibido na tela do notebook
         }
         if (i == 12 || i == 13 || i == 14) // relogio e ponteiros
         {
@@ -293,6 +287,7 @@ void GLDisplay::renderizarObjetos()
         }
 
         modelos3d[i].load3dFile(arquivos[i]);
+
         glPopMatrix();
     }
 
@@ -329,7 +324,7 @@ void GLDisplay::rotacaoHora(int elementoHora)
 
 }
 
-void GLDisplay::textoNotebook()
+void GLDisplay::textoNotebook(QString texto)
 {
     glPushMatrix();
 
@@ -349,8 +344,10 @@ void GLDisplay::textoNotebook()
 
     // Maneira 2 - texto 3d
     glDisable(GL_LIGHTING);
-    glColor3f(1.0, 0.0, 0.0);
-    glScalef(0.5, 0.5, 0.5);
+
+    glColor3f(1.0, 1.0, 1.0);
+
+    glScalef(0.45, 0.45, 0.45);
     glTranslatef(0.3, 0.3, 0.22);
     glRotatef(10, 1.0, 0.0, 0.0);
     glRotatef(180, 0.0, 1.0, 0.0);
@@ -358,7 +355,8 @@ void GLDisplay::textoNotebook()
     QPainterPath path;
     QFont font("Arial");
     font.setPixelSize(1);
-    path.addText(QPointF(0, 0), font, QString(tr("CG 2013.2")));
+    //path.addText(QPointF(0, 0), font, QString(tr("CG 2013.2")));
+    path.addText(QPointF(0, 0), font, QString(texto));
     QList<QPolygonF> poly = path.toSubpathPolygons();
     for (QList<QPolygonF>::iterator i = poly.begin(); i != poly.end(); i++){
         glBegin(GL_LINE_LOOP);

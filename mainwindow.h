@@ -22,7 +22,7 @@ public slots:
     void escolherCamera(int cameraId);
     void estiloIlum(int ilumId);
     void luz(int luzId);
-    void textoNotebook();
+    void textoNotebook(QString textoInput);
 };
 
 #endif // MAINWINDOW_H

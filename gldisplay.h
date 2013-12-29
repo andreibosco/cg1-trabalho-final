@@ -26,7 +26,7 @@ public:
     void cameraPosicao(int cameraId);
     void definirIluminacao(int ilumId);
     void rotacaoHora(int elementoHora);
-    void textoNotebook();
+    void textoNotebook(QString texto);
 
     bool light0_enable,
          light1_enable,
@@ -36,6 +36,8 @@ public:
          light5_enable;
 
     int cameraInicial;
+
+    QString texto;
 
 protected:
     virtual void mouseMoveEvent ( QMouseEvent * event );
