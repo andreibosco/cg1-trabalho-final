@@ -246,15 +246,17 @@ void GLDisplay::renderizarObjetos()
         }
         if (i == 13 ) // ponteiro de hora
         {
-            glTranslatef(0.0, 0.16, 0.0);
-            glRotatef(180, 0.0, 0.0, 1.0);
-            glTranslatef(0.0, -0.16, 0.0);
+//            glTranslatef(0.0, 0.16, 0.0);
+//            glRotatef(180, 0.0, 0.0, 1.0);
+//            glTranslatef(0.0, -0.16, 0.0);
+            rotacaoHora(0);
         }
         if (i == 14) // ponteiro do minuto
         {
-            glTranslatef(0.0, 0.16, 0.0);
-            glRotatef(-60, 0.0, 0.0, 1.0);
-            glTranslatef(0.0, -0.16, 0.0);
+//            glTranslatef(0.0, 0.16, 0.0);
+//            glRotatef(-60, 0.0, 0.0, 1.0);
+//            glTranslatef(0.0, -0.16, 0.0);
+            rotacaoHora(1);
         }
 
         modelos3d[i].load3dFile(arquivos[i]);
@@ -262,6 +264,36 @@ void GLDisplay::renderizarObjetos()
     }
 
     glFlush();
+}
+
+void GLDisplay::rotacaoHora(int elementoHora)
+{
+    // Ids:
+    // 0 = hora;
+    // 1 = minuto;
+
+    // criando objeto da hora
+    QTime horaCompleta = QTime::currentTime();
+    float hora = horaCompleta.hour();
+    float minuto = horaCompleta.minute();
+    float angulo;
+
+    // posicionando no eixo e aplicando rotação
+    // de acordo com o elemento e com a hora atual
+    glTranslatef(0.0, 0.16, 0.0);
+
+    if (elementoHora == 0)
+    {
+        angulo = hora * 30;
+    }
+    else
+    {
+        angulo = minuto * 6;
+    }
+    glRotatef(-angulo, 0.0, 0.0, 1.0);
+
+    glTranslatef(0.0, -0.16, 0.0);
+
 }
 
 void GLDisplay::definirIluminacao(int ilumId)

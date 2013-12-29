@@ -25,6 +25,7 @@ public:
     void renderizarObjetos();
     void cameraPosicao(int cameraId);
     void definirIluminacao(int ilumId);
+    void rotacaoHora(int elementoHora);
 
     bool light0_enable,
          light1_enable,
