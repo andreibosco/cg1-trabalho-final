@@ -188,7 +188,7 @@
           <property name="title">
            <string>Luzes</string>
           </property>
-          <widget class="QWidget" name="layoutWidget">
+          <widget class="QWidget" name="layoutWidget2">
            <property name="geometry">
             <rect>
              <x>10</x>

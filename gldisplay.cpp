@@ -126,9 +126,9 @@ void GLDisplay::resizeGL(int w, int h)
 
         glLoadIdentity();
 
-        gluLookAt(1.6,1.7,2.2,
-                  -0.5,0.6,-0.01,
-                  0.0,1.0,0.0);
+        cameraCustom(1.6, 1.7, 2.2,
+                    -0.5, 0.6, 0.0,
+                     1.6, 2.0, 2.2);
     }
 
     glMatrixMode(GL_MODELVIEW);
@@ -366,34 +366,64 @@ void GLDisplay::cameraPosicao(int cameraId)
 
     if (cameraId == 0)
     {
-        gluLookAt(1.6,1.7,2.2,
-                  -0.5,0.6,-0.01,
-                  0.0,1.0,0.0);
+        cameraCustom(1.6, 1.7, 2.2,
+                    -0.5, 0.6, -0.01,
+                     1.6, 2.0, 2.2);
     }
     else if (cameraId == 1)
     {
-        gluLookAt(0.8,1.5,1.1,
-                 -0.14,0.175,-0.31,
-                  0.0,1.0,0.0);
+        cameraCustom(0.8, 1.5, 1.1,
+                    -0.14, 0.175,-0.31,
+                     0.8, 2.5, 1.1);
     }
     else if (cameraId == 2)
     {
-        gluLookAt(-0.45,1.2,0.9,
-                   0.0,0.73,0.0,
-                   0.0,1.0,0.0);
+        cameraCustom(-0.45, 1.2, 0.9,
+                      0.0, 0.73, 0.0,
+                     -0.45, 2.0, 0.9);
     }
     else if (cameraId == 3)
     {
-        gluLookAt(0.0,2.8,0.0,
-                  0.0,0.0,0.0,
-                  0.0,1.0,1.0);
-    }
-    else
-    {
-        gluLookAt(1.0, 2.15, -3.3,
-                  0.0, 0.9, 0.0,
-                  0.0, 1.0, 0.0);
+        cameraCustom(0.0, 2.8, 0.0,
+                     0.0, 0.0, 0.0,
+                     0.0, 1.0, 1.0);
     }
 
     updateGL();
+}
+
+void GLDisplay::cameraCustom(float px, float py, float pz, // eye
+                             float tx, float ty, float tz, // target
+                             float ux, float uy, float uz) // up vector
+{
+    // matriz mundo p/ camera
+    float K[3] = {px - tx, py - ty, pz - tz};
+    float modK = modulo(K[0],K[1],K[2]);
+    float k[3] = {K[0]/modK, K[1]/modK, K[2]/modK};
+
+    float Ia[3] = {ux - px, uy - py, uz - pz};
+    float I[3] = { Ia[1] * K[2] - Ia[2] * K[1],
+                   Ia[2] * K[0] - Ia[0] * K[2],
+                   Ia[0] * K[1] - Ia[1] * K[0]};
+    float modI = modulo(I[0],I[1],I[2]);
+    float i[3] = {I[0]/modI, I[1]/modI, I[2]/modI};
+
+    float j[3] = { k[1] * i[2] - k[2] * i[1],
+                   k[2] * i[0] - k[0] * i[2],
+                   k[0] * i[1] - k[1] * i[0]};
+
+    float M[16] = {i[0], j[0], k[0], 0,
+                   i[1], j[1], k[1], 0,
+                   i[2], j[2], k[2], 0,
+                   -(i[0]*px+i[1]*py+i[2]*pz), -(j[0]*px+j[1]*py+j[2]*pz), -(k[0]*px+k[1]*py+k[2]*pz), 1.0};
+
+    // carregando a matrix M (mundo p/ camera)
+    glLoadMatrixf(M);
+
+    updateGL();
+}
+
+float GLDisplay::modulo(float x, float y, float z)
+{
+    return sqrt(x*x + y*y + z*z);
 }
