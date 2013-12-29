@@ -22,7 +22,10 @@ char* arquivos[] = {(char *)"assets/chao.dae",
                     (char *)"assets/prateleira.dae",
                     (char *)"assets/prateleira.dae",
                     (char *)"assets/lava_lamp_vidro.dae",
-                    (char *)"assets/notebook.dae"};
+                    (char *)"assets/notebook.dae",
+                    (char *)"assets/relogio.dae",
+                    (char *)"assets/ponteiro_hora.dae",
+                    (char *)"assets/ponteiro_minuto.dae"};
 int const arquivosSize = (sizeof(arquivos)/sizeof(*arquivos));
 
 // array de objetos
@@ -105,9 +108,15 @@ void GLDisplay::paintGL()
 
     // Rotação do cenário a partir da posição do mouse
     // FIXME: remover, isso é apenas para debug
-    glRotatef(_angleX, 0.0f, 1.0f, 0.0f);
+    //glRotatef(_angleX, 0.0f, 1.0f, 0.0f);
     //glRotatef(_angleY, 0.5f, 0.0f, 0.0f);
 
+    renderizarObjetos();
+
+}
+
+void GLDisplay::renderizarObjetos()
+{
     glMatrixMode(GL_MODELVIEW);
 
     /**
@@ -229,13 +238,17 @@ void GLDisplay::paintGL()
             else
                 glDisable(GL_LIGHT5);
         }
+        if (i == 12 || i == 13 || i == 14) // relogio e ponteiros
+        {
+            glTranslatef(-1.0, 0.93, 0.15);
+            glRotatef(70, 0.0, 1.0, 0.0);
+        }
 
         modelos3d[i].load3dFile(arquivos[i]);
         glPopMatrix();
     }
 
     glFlush();
-
 }
 
 void GLDisplay::definirIluminacao(int ilumId)

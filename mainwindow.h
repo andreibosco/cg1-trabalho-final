@@ -21,7 +21,6 @@ private:
 public slots:
     void escolherCamera(int cameraId);
     void estiloIlum(int ilumId);
-
     void luz(int luzId);
 };
 

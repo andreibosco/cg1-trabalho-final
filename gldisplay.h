@@ -22,6 +22,7 @@ public:
     virtual void paintGL();
     virtual void resizeGL(int w, int h);
 
+    void renderizarObjetos();
     void cameraPosicao(int cameraId);
     void definirIluminacao(int ilumId);
 

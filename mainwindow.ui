@@ -131,14 +131,14 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="diaLabel">
               <property name="text">
                <string>Dia</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="noiteLabel">
               <property name="text">
                <string>Noite</string>
               </property>
@@ -170,7 +170,7 @@
           <property name="title">
            <string>Luzes</string>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>17</x>
@@ -241,6 +241,13 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>camerasCombo</tabstop>
+  <tabstop>estiloIlumSlider</tabstop>
+  <tabstop>luminariaBtn</tabstop>
+  <tabstop>lavaBtn</tabstop>
+  <tabstop>notebookBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
