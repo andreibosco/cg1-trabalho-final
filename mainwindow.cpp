@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
+#include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,11 +10,22 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // criando objeto de mapeando para botões de luzes
+    QSignalMapper* signalLuzes = new QSignalMapper (this);
+
     connect(ui->camerasCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(escolherCamera(int)));
     connect(ui->estiloIlumSlider, SIGNAL(valueChanged(int)), this, SLOT(estiloIlum(int)));
-    connect(ui->luminariaBtn, SIGNAL(clicked()), this, SLOT(luzLuminaria()));
-    connect(ui->lavaBtn, SIGNAL(clicked()), this, SLOT(luzLavaLamp()));
-    connect(ui->notebookBtn, SIGNAL(clicked()), this, SLOT(luzNotebook()));
+    connect(ui->luminariaBtn, SIGNAL(clicked()), signalLuzes, SLOT(map()));
+    connect(ui->lavaBtn, SIGNAL(clicked()), signalLuzes, SLOT(map()));
+    connect(ui->notebookBtn, SIGNAL(clicked()), signalLuzes, SLOT(map()));
+
+    // mapeando sinais dos botões das luzes
+    signalLuzes->setMapping(ui->luminariaBtn, 0);
+    signalLuzes->setMapping(ui->lavaBtn, 1);
+    signalLuzes->setMapping(ui->notebookBtn, 2);
+
+    // conectando objeto de mapeamento à função de controle das luzes
+    connect(signalLuzes, SIGNAL(mapped(int)), this, SLOT(luz(int)));
 }
 
 MainWindow::~MainWindow()
@@ -28,6 +40,7 @@ void MainWindow::escolherCamera(int cameraId)
     // 1: mesa
     // 2: mesa 2
     // 3: topo
+
     ui->glDisplayWdgt->cameraInicial = 0;
     ui->glDisplayWdgt->cameraPosicao(cameraId);
 }
@@ -37,6 +50,7 @@ void MainWindow::estiloIlum(int ilumId)
     // Ids:
     // 0: dia
     // 1: noite
+
     ui->glDisplayWdgt->definirIluminacao(ilumId);
 
     if (ilumId == 0)
@@ -52,33 +66,35 @@ void MainWindow::estiloIlum(int ilumId)
         ui->notebookBtn->setChecked(true);
     }
 }
-
-void MainWindow::luzLuminaria()
+void MainWindow::luz(int luzId)
 {
-    if (!ui->glDisplayWdgt->light2_enable)
-        ui->glDisplayWdgt->light2_enable = true;
+    // Ids:
+    // 0: luminaria
+    // 1: lava
+    // 2: notebook
+
+    if (luzId == 0)
+    {
+        if (!ui->glDisplayWdgt->light2_enable)
+            ui->glDisplayWdgt->light2_enable = true;
+        else
+            ui->glDisplayWdgt->light2_enable = false;
+    }
+    else if (luzId == 1)
+    {
+        if (!ui->glDisplayWdgt->light4_enable)
+            ui->glDisplayWdgt->light4_enable = true;
+        else
+            ui->glDisplayWdgt->light4_enable = false;
+    }
     else
-        ui->glDisplayWdgt->light2_enable = false;
+    {
+        if (!ui->glDisplayWdgt->light5_enable)
+            ui->glDisplayWdgt->light5_enable = true;
+        else
+            ui->glDisplayWdgt->light5_enable = false;
 
-    ui->glDisplayWdgt->updateGL();
-}
-
-void MainWindow::luzLavaLamp()
-{
-    if (!ui->glDisplayWdgt->light4_enable)
-        ui->glDisplayWdgt->light4_enable = true;
-    else
-        ui->glDisplayWdgt->light4_enable = false;
-
-    ui->glDisplayWdgt->updateGL();
-}
-
-void MainWindow::luzNotebook()
-{
-    if (!ui->glDisplayWdgt->light5_enable)
-        ui->glDisplayWdgt->light5_enable = true;
-    else
-        ui->glDisplayWdgt->light5_enable = false;
+    }
 
     ui->glDisplayWdgt->updateGL();
 }

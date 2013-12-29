@@ -21,9 +21,8 @@ private:
 public slots:
     void escolherCamera(int cameraId);
     void estiloIlum(int ilumId);
-    void luzLuminaria();
-    void luzLavaLamp();
-    void luzNotebook();
+
+    void luz(int luzId);
 };
 
 #endif // MAINWINDOW_H
