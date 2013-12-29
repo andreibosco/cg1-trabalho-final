@@ -2,7 +2,7 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/freeglut.h>
+#include <GL/glut.h>
 
 #include "object.h"
 
@@ -116,10 +116,44 @@ void GLDisplay::paintGL()
 
 }
 
+void GLDisplay::resizeGL(int w, int h)
+{
+    glMatrixMode(GL_PROJECTION);
+
+    glViewport(0, 0, w, h);
+
+    glLoadIdentity();
+
+    if ( w>= h )
+        gluPerspective(40, w/h, 0.5, 5);
+    else
+        gluPerspective(40, h/w, 0.5, 5);
+
+    if (cameraInicial == 1)
+    {
+
+        glMatrixMode(GL_MODELVIEW);
+
+        glLoadIdentity();
+
+        // posicao 01 (perspectiva - visao de angulo)
+//        gluLookAt(1.0,1.5,1.5,
+//                  -0.4,0.0,-0.4,
+//                  0.0,1.0,0.0);
+        gluLookAt(1.6,1.7,2.2,
+                  -0.5,0.6,-0.01,
+                  0.0,1.0,0.0);
+        // visao externa de teste
+//        gluLookAt(1.0, 2.15, -3.3,
+//                  0.0, 0.9, 0.0,
+//                  0.0, 1.0, 0.0);
+    }
+
+    glMatrixMode(GL_MODELVIEW);
+}
+
 void GLDisplay::renderizarObjetos()
 {
-    glMatrixMode(GL_MODELVIEW);
-
     /**
       * Objetos 3D do cenário
       *
@@ -225,6 +259,7 @@ void GLDisplay::renderizarObjetos()
         }
         if (i == 11) // notebook
         {
+
             glRotatef(160, 0.0, 1.0, 0.0);
             glTranslatef(-0.20, 0.73, 0.2);
             float light5_diffuse[] = {0.0, 0.0, 0.5};
@@ -238,6 +273,10 @@ void GLDisplay::renderizarObjetos()
                 glEnable(GL_LIGHT5);
             else
                 glDisable(GL_LIGHT5);
+
+            textoNotebook();
+            //draw_text(0.0, 0.0, 0.0, "Testando escrita");
+
         }
         if (i == 12 || i == 13 || i == 14) // relogio e ponteiros
         {
@@ -246,16 +285,10 @@ void GLDisplay::renderizarObjetos()
         }
         if (i == 13 ) // ponteiro de hora
         {
-//            glTranslatef(0.0, 0.16, 0.0);
-//            glRotatef(180, 0.0, 0.0, 1.0);
-//            glTranslatef(0.0, -0.16, 0.0);
             rotacaoHora(0);
         }
         if (i == 14) // ponteiro do minuto
         {
-//            glTranslatef(0.0, 0.16, 0.0);
-//            glRotatef(-60, 0.0, 0.0, 1.0);
-//            glTranslatef(0.0, -0.16, 0.0);
             rotacaoHora(1);
         }
 
@@ -296,6 +329,49 @@ void GLDisplay::rotacaoHora(int elementoHora)
 
 }
 
+void GLDisplay::textoNotebook()
+{
+    glPushMatrix();
+
+    // Maneira 1 - texto 2d
+    /*
+    QFont myFont("Helvetica", 24);
+    myFont.setPointSize(30);
+    renderText(0,0,0,"TESTE DE TEXTO", myFont);
+
+    glDisable(GL_DEPTH_TEST);
+    glColor3f(1.0, 0.0, 0.0);
+    float zz=-.5;
+
+    renderText(0, 0, zz,tr("Teste de texto"),QFont("Arial",12));
+    //renderText(0,.5, zz,tr("Outro texto"),QFont("Arial",12));
+    */
+
+    // Maneira 2 - texto 3d
+    glDisable(GL_LIGHTING);
+    glColor3f(1.0, 0.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+    glTranslatef(0.3, 0.3, 0.22);
+    glRotatef(10, 1.0, 0.0, 0.0);
+    glRotatef(180, 0.0, 1.0, 0.0);
+
+    QPainterPath path;
+    QFont font("Arial");
+    font.setPixelSize(1);
+    path.addText(QPointF(0, 0), font, QString(tr("CG 2013.2")));
+    QList<QPolygonF> poly = path.toSubpathPolygons();
+    for (QList<QPolygonF>::iterator i = poly.begin(); i != poly.end(); i++){
+        glBegin(GL_LINE_LOOP);
+        for (QPolygonF::iterator p = (*i).begin(); p != i->end(); p++)
+            glVertex3f(p->rx()*0.1f, -p->ry()*0.1f, 0);
+        glEnd();
+    }
+
+    glEnable(GL_LIGHTING);
+
+    glPopMatrix();
+}
+
 void GLDisplay::definirIluminacao(int ilumId)
 {
     // Ids:
@@ -322,40 +398,6 @@ void GLDisplay::definirIluminacao(int ilumId)
         light5_enable = true;
     }
     updateGL();
-}
-
-void GLDisplay::resizeGL(int w, int h)
-{
-    glMatrixMode(GL_PROJECTION);
-
-    glViewport(0, 0, w, h);
-
-    glLoadIdentity();
-
-    if ( w>= h )
-        gluPerspective(40, w/h, 0.5, 5);
-    else
-        gluPerspective(40, h/w, 0.5, 5);
-
-    if (cameraInicial == 1)
-    {
-
-        glMatrixMode(GL_MODELVIEW);
-
-        glLoadIdentity();
-
-        // posicao 01 (perspectiva - visao de angulo)
-//        gluLookAt(1.0,1.5,1.5,
-//                  -0.4,0.0,-0.4,
-//                  0.0,1.0,0.0);
-        gluLookAt(1.6,1.7,2.2,
-                  -0.5,0.6,-0.01,
-                  0.0,1.0,0.0);
-        // visao externa de teste
-//        gluLookAt(1.0, 2.15, -3.3,
-//                  0.0, 0.9, 0.0,
-//                  0.0, 1.0, 0.0);
-    }
 }
 
 void GLDisplay::cameraPosicao(int cameraId)

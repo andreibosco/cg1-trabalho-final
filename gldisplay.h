@@ -26,6 +26,7 @@ public:
     void cameraPosicao(int cameraId);
     void definirIluminacao(int ilumId);
     void rotacaoHora(int elementoHora);
+    void textoNotebook();
 
     bool light0_enable,
          light1_enable,
