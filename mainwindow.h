@@ -22,6 +22,7 @@ public slots:
     void escolherCamera(int cameraId);
     void estiloIlum(int ilumId);
     void luz(int luzId);
+    void textoNotebook();
 };
 
 #endif // MAINWINDOW_H

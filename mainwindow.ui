@@ -52,9 +52,9 @@
           <widget class="QComboBox" name="camerasCombo">
            <property name="geometry">
             <rect>
-             <x>17</x>
+             <x>10</x>
              <y>25</y>
-             <width>85</width>
+             <width>101</width>
              <height>26</height>
             </rect>
            </property>
@@ -107,9 +107,9 @@
           <widget class="QSlider" name="estiloIlumSlider">
            <property name="geometry">
             <rect>
-             <x>17</x>
+             <x>10</x>
              <y>33</y>
-             <width>88</width>
+             <width>101</width>
              <height>19</height>
             </rect>
            </property>
@@ -123,9 +123,9 @@
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>17</x>
+             <x>10</x>
              <y>58</y>
-             <width>91</width>
+             <width>101</width>
              <height>20</height>
             </rect>
            </property>
@@ -173,9 +173,9 @@
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>17</x>
+             <x>10</x>
              <y>25</y>
-             <width>87</width>
+             <width>101</width>
              <height>95</height>
             </rect>
            </property>
@@ -211,6 +211,29 @@
              </widget>
             </item>
            </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QGroupBox" name="notebookGrpBox">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>120</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Notebook</string>
+          </property>
+          <widget class="QPlainTextEdit" name="notebookText">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>30</y>
+             <width>101</width>
+             <height>70</height>
+            </rect>
+           </property>
           </widget>
          </widget>
         </item>
