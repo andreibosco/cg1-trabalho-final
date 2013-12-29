@@ -156,9 +156,9 @@ void GLDisplay::renderizarObjetos()
         }
         if (i == 3) // lampada
         {
-            glTranslatef(0.0, 0.73, 0.0);
-            glTranslatef(-0.25, 0.0, 0.0);
+            glTranslatef(-0.25, 0.73, 0.0);
             glRotatef(-45,0.0,1.0,0.0);
+            glScalef(1.5,1.5,1.7);
             // GL_LIGHT2: Luz luminária de mesa
             float light2_diffuse[] = {1.0, 1.0, 1.0};
             //float light2_ambient[] = {0.7, 0.7, 0.7};
