@@ -11,7 +11,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = trabalho_final
 TEMPLATE = app
 
-LIBS += -L/usr/local/lib -lassimp -lGLU
+# Libs e include p/ MacOSX com assimp instalado pelo brew
+LIBS += -L/usr/local/Cellar/assimp/3.0.1270/lib -lassimp
+INCLUDEPATH += /usr/local/Cellar/assimp/3.0.1270/include
+
+# Libs p/ Linux com assimp instalado no /usr/local
+#LIBS += -L/usr/local/lib -lassimp -lGLU
 
 SOURCES += main.cpp\
         mainwindow.cpp \

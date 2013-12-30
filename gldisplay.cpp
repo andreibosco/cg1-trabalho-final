@@ -1,9 +1,12 @@
 #include "gldisplay.h"
 #include "object.h"
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
+#ifdef __APPLE__
+    #include <glu.h>
+#else
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#endif
 
 #include <QDateTime>
 
